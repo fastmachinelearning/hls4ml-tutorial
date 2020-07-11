@@ -1,14 +1,15 @@
 # hls4ml-tutorial
 Tutorial notebooks for hls4ml 
 
-The Python environment used for the tutorials is specified in the hls4ml-tutorial-py36.txt file. It can be setup like:
-```conda create --name hls4ml-tutorial --file hls4ml-tutorial-py36.txt
+The Python environment used for the tutorials is specified in the `environment.yml` file. It can be setup like:
+```
+conda env create -f environment.yml
 conda activate hls4ml-tutorial
 ```
 
-Then, hls4ml needs to be installed following the instructions found at https://fastmachinelearning.org/hls4ml/setup/QUICKSTART.html
-The master branch (at 773039f) or v0.2.1 (when it's created) should be used.
+The second step to create a "Xilinx" Jupyter kernel is (assuming Vivado is set up):
+```
+python setup_kernel.py
+```
 
-The final notebook introduces quantization aware training with qkeras, which also needs to be cloned from github.
-Instructions are at https://github.com/google/qkeras
-v0.7.4 was used for these notebooks.
+The tutorial was tested with hls4ml master (hls-fpga-machine-learning/hls4ml@e9d0576) and qkeras master (google/qkeras@a1fb541).
