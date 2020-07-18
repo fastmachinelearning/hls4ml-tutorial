@@ -12,4 +12,4 @@ The second step to create a "Xilinx" Jupyter kernel is (assuming Vivado is set u
 python setup_kernel.py
 ```
 
-The tutorial was tested with hls4ml master (hls-fpga-machine-learning/hls4ml@e9d0576) and qkeras master (google/qkeras@a1fb541).
+The tutorial was tested with `hls4ml` master [@e9d0576](https://github.com/hls-fpga-machine-learning/hls4ml/tree/e9d0576) and `qkeras` master [@a1fb541](https://github.com/google/qkeras/tree/a1fb541)
