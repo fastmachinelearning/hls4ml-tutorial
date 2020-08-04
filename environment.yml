@@ -9,5 +9,5 @@ dependencies:
     - tensorflow==2.1.0
     - pydot
     - graphviz
-    - git+git://github.com/hls-fpga-machine-learning/hls4ml.git#egg=hls4ml[profiling]
+    - hls4ml[profiling]
     - git+git://github.com/google/qkeras.git#egg=qkeras
