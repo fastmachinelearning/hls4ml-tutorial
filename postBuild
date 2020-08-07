@@ -1,0 +1,5 @@
+#!/bin/bash
+wget -O vivado.tar.gz https://xilinx-ax-dl.entitlenow.com/dl/ul/2019/11/08/R210260632/Xilinx_Vivado_2019.2_1106_2127.tar.gz/5ac81b593210503c51b0204be25fbddd/5F2D846E
+tar -xzf vivado.tar.gz
+cd Xilinx_Vivado_SDK_2019.2_1106_2127
+./xsetup --agree XilinxEULA,3rdPartyEULA,WebTalkTerms --batch Install --config ../vivado_cfg.txt
