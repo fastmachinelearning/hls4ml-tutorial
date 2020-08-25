@@ -1,14 +1,14 @@
-#### Vivado HL Design Edition Install Configuration ####
-Edition=Vivado HL Design Edition
+#### Vivado HL WebPACK Install Configuration ####
+Edition=Vivado HL WebPACK
 
 # Path where Xilinx software will be installed.
-Destination=/opt/Xilinx
+Destination=
 
 # Choose the Products/Devices the you would like to install.
-Modules=Zynq UltraScale+ MPSoC:0,DocNav:1,Virtex UltraScale+ HBM:0,Virtex UltraScale+ 58G:0,Virtex UltraScale+ 58G ES:0,Virtex UltraScale+:1,Zynq-7000:0,Kintex UltraScale+:0,Engineering Sample Devices:0,Model Composer:0,Kintex UltraScale:1,Virtex UltraScale:0,Zynq UltraScale+ RFSoC:0,Versal AI Core Series ES1:0,Versal Prime Series ES1:0,Virtex UltraScale+ HBM ES:0,Zynq UltraScale+ RFSoC ES:0
+Modules=Virtex UltraScale+ HBM:0,Zynq UltraScale+ MPSoC:0,DocNav:1,Kintex UltraScale:0,Zynq-7000:1,System Generator for DSP:0,Virtex UltraScale+:1,Kintex UltraScale+:0,Model Composer:0
 
 # Choose the post install scripts you'd like to run as part of the finalization step. Please note that some of these scripts may require user interaction during runtime.
-InstallOptions=Acquire or Manage a License Key:0,Enable WebTalk for Vivado to send usage statistics to Xilinx (Always enabled for WebPACK license):0
+InstallOptions=
 
 ## Shortcuts and File associations ##
 # Choose whether Start menu/Application menu shortcuts will be created or not.
@@ -21,7 +21,7 @@ ProgramGroupFolder=Xilinx Design Tools
 CreateShortcutsForAllUsers=0
 
 # Choose whether shortcuts will be created on the desktop or not.
-CreateDesktopShortcuts=0
+CreateDesktopShortcuts=1
 
 # Choose whether file associations will be created or not.
 CreateFileAssociation=1
