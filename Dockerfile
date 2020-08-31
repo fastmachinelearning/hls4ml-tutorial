@@ -56,6 +56,9 @@ RUN apt-get -qq update && \
     apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN git clone https://github.com/hls-fpga-machine-learning/hls4ml-tutorial -b binder-vivado /tmp/tutorial 
+    #cp /tmp/tutorial/environment.yml /tmp/environment.yml
+
 EXPOSE 8888
 
 # Environment variables required for build
@@ -69,11 +72,14 @@ ENV KERNEL_PYTHON_PREFIX ${NB_PYTHON_PREFIX}
 ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
 # If scripts required during build are present, copy them
 
-COPY build_script_files/-2fhome-2fsioni-2fwork-2fhls4ml-2frepo2docker-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-23d9f2 /etc/profile.d/activate-conda.sh
+COPY activate-conda.sh /etc/profile.d/activate-conda.sh
+#COPY build_script_files/-2fhome-2fsioni-2fwork-2fhls4ml-2frepo2docker-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-23d9f2 /etc/profile.d/activate-conda.sh
 
-COPY build_script_files/-2fhome-2fsioni-2fwork-2fhls4ml-2frepo2docker-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2epy-2d3-2e7-2efrozen-2eyml-618176 /tmp/environment.yml
+COPY environment.yml /tmp/environment.yml
+#COPY build_script_files/-2fhome-2fsioni-2fwork-2fhls4ml-2frepo2docker-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2epy-2d3-2e7-2efrozen-2eyml-618176 /tmp/environment.yml
 
-COPY build_script_files/-2fhome-2fsioni-2fwork-2fhls4ml-2frepo2docker-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dminiforge-2ebash-5530e3 /tmp/install-miniforge.bash
+COPY install-miniforge.bash /tmp/install-miniforge.bash
+#COPY build_script_files/-2fhome-2fsioni-2fwork-2fhls4ml-2frepo2docker-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dminiforge-2ebash-5530e3 /tmp/install-miniforge.bash
 RUN mkdir -p ${NPM_DIR} && \
 chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
 
@@ -87,7 +93,9 @@ rm /tmp/install-miniforge.bash /tmp/environment.yml
 
 
 # Allow target path repo is cloned to be configurable
+#ARG REPO_DIR=/tmp/tutorial
 ARG REPO_DIR=${HOME}
+#RUN mkdir ${REPO_DIR}
 ENV REPO_DIR ${REPO_DIR}
 WORKDIR ${REPO_DIR}
 
@@ -109,21 +117,22 @@ ENV CONDA_DEFAULT_ENV ${KERNEL_PYTHON_PREFIX}
 # example installing APT packages.
 # If scripts required during build are present, copy them
 
-COPY src/environment.yml ${REPO_DIR}/environment.yml
+#COPY src/environment.yml ${REPO_DIR}/environment.yml
 USER root
 RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
 USER ${NB_USER}
-RUN conda env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
-conda clean --all -f -y && \
-conda list -p ${NB_PYTHON_PREFIX}
+RUN cp /tmp/tutorial/environment.yml ~/ && \
+    conda env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
+    conda clean --all -f -y && \
+    conda list -p ${NB_PYTHON_PREFIX}
 
 
 
 # Copy and chown stuff. This doubles the size of the repo, because
 # you can't actually copy as USER, only as root! Thanks, Docker!
 USER root
-COPY src/ ${REPO_DIR}
-RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
+#COPY src/ ${REPO_DIR}
+#RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
 
 # Run assemble scripts! These will actually turn the specification
 # in the repository into an image.
@@ -142,7 +151,7 @@ USER ${NB_USER}
 
 # Add start script
 # Add entrypoint
-COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+COPY repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
 # Specify the default command to run

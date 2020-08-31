@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.7
+  - jupyterhub
   - pip
   - pip:
     - jupyter
