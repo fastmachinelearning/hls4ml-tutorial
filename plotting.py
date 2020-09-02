@@ -73,3 +73,13 @@ def makeRoc(y, predict_test, labels, linestyle='-', legend=True):
     fpr, tpr, auc1 = rocData(y, predict_test, labels)
     plotRoc(fpr, tpr, auc1, labels, linestyle, legend=legend)
     return predict_test
+
+def print_dict(d, indent=0):
+    align=20
+    for key, value in d.items():
+        print('  ' * indent + str(key), end='')
+        if isinstance(value, dict):
+            print()
+            print_dict(value, indent+1)
+        else:
+            print(':' + ' ' * (20 - len(key) - 2 * indent) + str(value))

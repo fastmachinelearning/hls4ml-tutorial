@@ -4,11 +4,11 @@ channels:
 dependencies:
   - python=3.7
   - jupyterhub
+  - pydot
+  - graphviz
   - pip
   - pip:
     - jupyter
     - tensorflow==2.1.0
-    - pydot
-    - graphviz
-    - hls4ml[profiling]
+    - git+git://github.com/thesps/hls4ml.git#egg=config_fix[profiling]
     - git+git://github.com/google/qkeras.git#egg=qkeras
