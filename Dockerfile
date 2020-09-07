@@ -56,7 +56,7 @@ RUN apt-get -qq update && \
     apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/thesps/hls4ml-tutorial -b docker /tmp/tutorial 
+RUN git clone https://github.com/thesps/hls4ml-tutorial -b docker /tmp/tutorial && cp /tmp/tutorial/*py* ${HOME}
     #cp /tmp/tutorial/environment.yml /tmp/environment.yml
 
 EXPOSE 8888
