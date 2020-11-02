@@ -1,13 +1,14 @@
-name: hls4ml-tutorial
+name: hls4ml-tutorial-0.4.0
 channels:
   - conda-forge
 dependencies:
   - python=3.7
+  - jupyterhub
+  - pydot
+  - graphviz
   - pip
   - pip:
     - jupyter
-    - tensorflow==2.1.0
-    - pydot
-    - graphviz
-    - git+git://github.com/hls-fpga-machine-learning/hls4ml.git#egg=hls4ml[profiling]
+    - tensorflow==2.3.1
+    - hls4ml[profiling]==0.4.0
     - git+git://github.com/google/qkeras.git#egg=qkeras
