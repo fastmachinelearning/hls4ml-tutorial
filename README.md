@@ -9,6 +9,14 @@ We adopt the `hls4ml-tutorial` notebooks for the course [CSEE E6868 Spring 2021]
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hls-fpga-machine-learning/hls4ml-tutorial/HEAD)
 -->
 
+## Getting Started
+
+When you clone this repository, please remember to specify the course branch.
+
+```
+git clone -b csee-e6868-spring2021 git@github.com:fastmachinelearning/hls4ml-tutorial.git
+```
+
 ## Install Miniconda
 
 Please follow these [instructions](https://docs.conda.io/en/latest/miniconda.html) to install Miniconda (Python 3.8).
