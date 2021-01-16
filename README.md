@@ -25,6 +25,7 @@ Please follow these [instructions](https://docs.conda.io/en/latest/miniconda.htm
 
 The Conda environment used for the tutorial is specified in the `environment.yml` file. Creating the environment is a _on-time_ operation:
 ```
+cd hls4ml-tutorial
 conda env create -f environment.yml
 ```
 
