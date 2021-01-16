@@ -3,7 +3,7 @@ all:
 .PHONY: all
 
 clean:
-	@rm -f *.npy *.png
+	@rm -f *.npy *.png *.log *.jou
 	@rm -rf model_1
 	@rm -rf .ipynb_checkpoints
 	@rm -rf __pycache__

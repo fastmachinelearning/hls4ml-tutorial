@@ -2,4 +2,6 @@
 __pycache__
 model*
 *.npy
+*.log
+*.jou
 *~
