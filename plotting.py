@@ -8,7 +8,7 @@ import itertools
 # confusion matrix code from Maurizio
 # /eos/user/m/mpierini/DeepLearning/ML4FPGA/jupyter/HbbTagger_Conv1D.ipynb
 def plot_confusion_matrix(cm, classes,
-                          normalize=False, 
+                          normalize=False,
                           title='Confusion matrix',
                           cmap=plt.cm.Blues):
     """
@@ -69,7 +69,7 @@ def rocData(y, predict_test, labels):
 def makeRoc(y, predict_test, labels, linestyle='-', legend=True):
 
     if 'j_index' in labels: labels.remove('j_index')
-        
+
     fpr, tpr, auc1 = rocData(y, predict_test, labels)
     plotRoc(fpr, tpr, auc1, labels, linestyle, legend=legend)
     return predict_test
@@ -83,3 +83,31 @@ def print_dict(d, indent=0):
             print_dict(value, indent+1)
         else:
             print(':' + ' ' * (20 - len(key) - 2 * indent) + str(value))
+
+def plotMultiClassRoc(y_test, y_keras, labels, linestyle='-', legend=True, logscale_fpr=False, logscale_tpr=False, logo=False, title=''):
+    from sklearn.metrics import roc_curve, auc
+    tpr = dict()
+    fpr = dict()
+    roc_auc = dict()
+
+    for i, label in enumerate(labels):
+        fpr[i], tpr[i], threshold = roc_curve(y_test[:, i], y_keras[:, i])
+        roc_auc[i] = auc(fpr[i], tpr[i])
+        plt.plot(fpr[i], tpr[i], label='{0} tagger, AUC = {1:0.3f}%'.format(label, roc_auc[i]*100), linestyle=linestyle)
+
+    if legend: plt.legend(loc="lower right")
+    if logscale_tpr: plt.semilogy()
+    if logscale_fpr: plt.semilogx()
+    if logo:
+        plt.figtext(0.25, 0.90, 'hls4ml',fontweight='bold', wrap=True, horizontalalignment='right', fontsize=14)
+
+    if (not logscale_tpr) and (not logscale_fpr):
+        plt.plot([0, 1], [0, 1], 'k--', lw=1)
+    plt.xlim([0.000005, 1.0])
+    plt.ylim([0.000005, 1.0])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title(title)
+
+    plt.grid(True)
+    #_ = plt.show()
