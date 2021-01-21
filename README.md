@@ -11,6 +11,12 @@ You can set up your working space either on your local machine or the [CSEE E686
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hls-fpga-machine-learning/hls4ml-tutorial/HEAD)
 -->
 
+## Xilinx Vivado HLS
+
+Make sure you have the [Xilinx Vivado Design Suite](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html) on your working machine. The path on the Columbia servers is `/opt/Xilinx/Vivado/2018.2/bin`.
+
+A version of the design suite between ver. *2018.2* and *2019.2* has been tested. If you have more questions, please ask the instructors.
+
 ## Getting Started
 
 When you clone this repository, please remember to specify the course branch.
