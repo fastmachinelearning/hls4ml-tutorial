@@ -28,7 +28,7 @@ A version of the design suite between ver. *2018.2* and *2019.2* has been tested
 When you clone this repository, please remember to specify the course branch.
 
 ```
-git clone -b csee-e6868-spring2021 git@github.com:fastmachinelearning/hls4ml-tutorial.git
+git clone --recursive -b csee-e6868-spring2021 git@github.com:fastmachinelearning/hls4ml-tutorial.git
 ```
 
 #### Install Miniconda
@@ -54,3 +54,18 @@ Copy in your browser the URL that you obtain after running:
 ```
 jupyter notebook
 ```
+
+### Running Jupyter Notebook on a Remote Server
+
+This is the case you have a `<remote_host>` that you can use, e.g., a server different from the ones provided for the course and with many CPU cores/threads for running Design Space Exploration. The Columbia servers may run a local firewall, ask the instructors if you want to run the notebook this way.
+
+1. Launch Jupyter Notebook from remote server using port `8080`, for example:
+   ```
+   ssh <remote_user>@<remote_host>
+   jupyter notebook --no-browser --port=8080
+   ```
+2. You can access the notebook from your remote machine over SSH by setting up a SSH tunnel. Run the following command from your local machine:
+   ```
+   ssh -4 -L 8080:localhost:<port> <remote_user>@<remote_host>
+   ```
+3. Open a browser from your local machine and navigate to `http://localhost:8080`, the Jupyter Notebook web interface. Replace 8080 with your port number used in step 1.
