@@ -66,6 +66,6 @@ This is the case you have a `<remote_host>` that you can use, e.g., a server dif
    ```
 2. You can access the notebook from your remote machine over SSH by setting up a SSH tunnel. Run the following command from your local machine:
    ```
-   ssh -L 8080:localhost:<port> <remote_user>@<remote_host>
+   ssh -4 -L 8080:localhost:<port> <remote_user>@<remote_host>
    ```
 3. Open a browser from your local machine and navigate to `http://localhost:8080`, the Jupyter Notebook web interface. Replace 8080 with your port number used in step 1.
