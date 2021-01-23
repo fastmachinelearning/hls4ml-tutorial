@@ -55,8 +55,9 @@ Copy in your browser the URL that you obtain after running:
 jupyter notebook
 ```
 
-#### Running Jupyter Notebook on a remote server
+### Running Jupyter Notebook on a Remote Server
 
+This is the case you have a `<remote_host>` that you can use, e.g., a server different from the ones provided for the course and with many CPU cores/threads for running Design Space Exploration. The Columbia servers may run a local firewall, ask the instructors if you want to run the notebook this way.
 
 1. Launch Jupyter Notebook from remote server using port `8080`, for example:
    ```
