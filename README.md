@@ -48,6 +48,8 @@ In any new console, remember to activate the newly created environemnt:
 conda activate hls4ml-tutorial-cu
 ```
 
+[Here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) you can find more instructions on how to create and manage a Conda environment.
+
 #### Run Jupyter Notebook
 
 Copy in your browser the URL that you obtain after running:
