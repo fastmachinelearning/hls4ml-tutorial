@@ -48,6 +48,8 @@ cd hls4ml-tutorial
 conda env create -f environment.yml
 ```
 
+You should close the terminal and open a new one to make sure that Conda is correctly setup in your environment.
+
 In any new console, remember to activate the newly created environemnt:
 ```
 conda activate hls4ml-tutorial-cu
