@@ -28,7 +28,7 @@ A version of the design suite between ver. *2018.2* and *2019.2* has been tested
 When you clone this repository, please remember to specify the course branch.
 
 ```
-git clone --recursive -b csee-e6868-spring2021 git@github.com:fastmachinelearning/hls4ml-tutorial.git
+git clone --recursive -b csee-e6868-spring2021 https://github.com/fastmachinelearning/hls4ml-tutorial.git
 ```
 
 #### Install Miniconda
