@@ -35,6 +35,11 @@ git clone --recursive -b csee-e6868-spring2021 https://github.com/fastmachinelea
 
 Please follow these [instructions](https://docs.conda.io/en/latest/miniconda.html) to install Miniconda (Python 3.8).
 
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
 #### Create and Activate a Conda Environment
 
 The Conda environment used for the tutorial is specified in the `environment.yml` file. Creating the environment is a _on-time_ operation:
