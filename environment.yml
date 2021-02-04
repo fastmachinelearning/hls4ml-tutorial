@@ -11,5 +11,7 @@ dependencies:
   - pip:
     - jupyter
     - tensorflow==2.3.1
-    - hls4ml[profiling]==0.4.0
+    - git+git://github.com/GiuseppeDiGuglielmo/hls4ml.git@gdg/cosmetics#egg=hls4ml[profiling]
     - git+git://github.com/google/qkeras.git#egg=qkeras
+
+#- hls4ml[profiling]==0.4.0

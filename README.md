@@ -28,12 +28,17 @@ A version of the design suite between ver. *2018.2* and *2019.2* has been tested
 When you clone this repository, please remember to specify the course branch.
 
 ```
-git clone --recursive -b csee-e6868-spring2021 git@github.com:fastmachinelearning/hls4ml-tutorial.git
+git clone --recursive -b csee-e6868-spring2021 https://github.com/fastmachinelearning/hls4ml-tutorial.git
 ```
 
 #### Install Miniconda
 
 Please follow these [instructions](https://docs.conda.io/en/latest/miniconda.html) to install Miniconda (Python 3.8).
+
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
 
 #### Create and Activate a Conda Environment
 
@@ -43,10 +48,14 @@ cd hls4ml-tutorial
 conda env create -f environment.yml
 ```
 
+You should close the terminal and open a new one to make sure that Conda is correctly setup in your environment.
+
 In any new console, remember to activate the newly created environemnt:
 ```
 conda activate hls4ml-tutorial-cu
 ```
+
+[Here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) you can find more instructions on how to create and manage a Conda environment.
 
 #### Run Jupyter Notebook
 
