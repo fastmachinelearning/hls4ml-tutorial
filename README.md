@@ -7,7 +7,9 @@
     - [Jupyter Notebook Setup](#jupyter-notebook-setup)
         + [Install Miniconda](#install-miniconda)
         + [Create and Activate a Conda Environment](#create-and-activate-a-conda-environment)
+        + [Update `hls4ml` Package in the Conda Environment](#update-hls4ml-package-in-the-conda-environment)
         + [Run Jupyter Notebook](#run-jupyter-notebook)
+    - [Running Jupyter Notebook on a Remote Server](#running-jupyter-notebook-on-a-remote-server)
 
 <!-- vim-markdown-toc -->
 
