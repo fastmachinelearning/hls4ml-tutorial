@@ -55,6 +55,15 @@ In any new console, remember to activate the newly created environemnt:
 conda activate hls4ml-tutorial-cu
 ```
 
+#### Update `hls4ml` Package in the Conda Environment
+
+Because the `hls4ml` project is constantly evolving, it may be necessary to update the package in your Conda environment. The easiest way is:
+
+```
+conda activate hls4ml-tutorial-cu
+pip install git+https://github.com/GiuseppeDiGuglielmo/hls4ml.git@gdg/cosmetics#egg=hls4ml[profiling]
+```
+
 [Here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) you can find more instructions on how to create and manage a Conda environment.
 
 #### Run Jupyter Notebook
