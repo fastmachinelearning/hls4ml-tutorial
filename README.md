@@ -63,6 +63,7 @@ Because the `hls4ml` project is constantly evolving, it may be necessary to upda
 
 ```
 conda activate hls4ml-tutorial-cu
+pip uninstall hls4ml
 pip install git+https://github.com/GiuseppeDiGuglielmo/hls4ml.git@gdg/cosmetics#egg=hls4ml[profiling]
 ```
 
