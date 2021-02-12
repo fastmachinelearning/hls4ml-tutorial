@@ -4,7 +4,7 @@
  *
  */
 
-#include "xmyproject.h"  /* accelerator */
+#include "xmyproject_axi.h"  /* accelerator */
 #include "stdio.h"       /* printf */
 #include "unistd.h"      /* sleep */
 #include "stdlib.h"
@@ -78,17 +78,17 @@ unsigned short *dst_mem;
 #endif
 
 /* accelerator configuration */
-XMyproject do_jet_tagger;
-XMyproject_Config *do_jet_tagger_cfg;
+XMyproject_axi do_jet_tagger;
+XMyproject_axi_Config *do_jet_tagger_cfg;
 
 /* accelerator initialization routine */
 void init_accelerators()
 {
     printf("INFO: Initializing accelerator\n\r");
-    do_jet_tagger_cfg = XMyproject_LookupConfig(XPAR_MYPROJECT_0_DEVICE_ID);
+    do_jet_tagger_cfg = XMyproject_axi_LookupConfig(XPAR_MYPROJECT_AXI_0_DEVICE_ID);
     if (do_jet_tagger_cfg)
     {
-        int status  = XMyproject_CfgInitialize(&do_jet_tagger, do_jet_tagger_cfg);
+        int status  = XMyproject_axi_CfgInitialize(&do_jet_tagger, do_jet_tagger_cfg);
         if (status != XST_SUCCESS)
         {
             printf("ERROR: Initializing accelerator\n\r");
@@ -135,39 +135,39 @@ void dump_data(const char* label, unsigned short* data, unsigned sample_count, u
     /* print at most MAX_PRINT_ELEMENTS */
     for (unsigned i = 0; i < sample_count && i < MAX_PRINT_ELEMENTS; i++)
     {
-    	printf("INFO:     [%u] ", i);
-    	if (print_hex)
-    		for (unsigned j = 0; j < feature_count; j++)
-    		{
-    			unsigned index = i * feature_count + j;
-    			printf("%03X ", data[index]);
-    		}
-    	if (print_bin)
-    		for (unsigned j = 0; j < feature_count; j++)
-    		{
-    			unsigned index = i * feature_count + j;
-    			printf(""SHORT_TO_BINARY_PATTERN, SHORT_TO_BINARY(data[index]));
-    			printf(" ");
-    		}
-    	printf("\n\r");
+        printf("INFO:     [%u] ", i);
+        if (print_hex)
+            for (unsigned j = 0; j < feature_count; j++)
+            {
+                unsigned index = i * feature_count + j;
+                printf("%03X ", data[index]);
+            }
+        if (print_bin)
+            for (unsigned j = 0; j < feature_count; j++)
+            {
+                unsigned index = i * feature_count + j;
+                printf(""SHORT_TO_BINARY_PATTERN, SHORT_TO_BINARY(data[index]));
+                printf(" ");
+            }
+        printf("\n\r");
     }
     for (unsigned i = sample_count - MAX_PRINT_ELEMENTS; i < sample_count; i++)
     {
-    	printf("INFO:     [%u] ", i);
-    	if (print_hex)
-    		for (unsigned j = 0; j < feature_count; j++)
-    		{
-    			unsigned index = i * feature_count + j;
-    			printf("%03X ", data[index]);
-    		}
-    	if (print_bin)
-    		for (unsigned j = 0; j < feature_count; j++)
-    		{
-    			unsigned index = i * feature_count + j;
-    			printf(""SHORT_TO_BINARY_PATTERN, SHORT_TO_BINARY(data[index]));
-    			printf(" ");
-    		}
-    	printf("\n\r");
+        printf("INFO:     [%u] ", i);
+        if (print_hex)
+            for (unsigned j = 0; j < feature_count; j++)
+            {
+                unsigned index = i * feature_count + j;
+                printf("%03X ", data[index]);
+            }
+        if (print_bin)
+            for (unsigned j = 0; j < feature_count; j++)
+            {
+                unsigned index = i * feature_count + j;
+                printf(""SHORT_TO_BINARY_PATTERN, SHORT_TO_BINARY(data[index]));
+                printf(" ");
+            }
+        printf("\n\r");
     }
 }
 
@@ -256,29 +256,29 @@ int main(int argc, char** argv)
 
     for (unsigned i = 0; i < src_SAMPLE_COUNT; i++) {
 
-    	/* Configure the accelerator */
-    	XTime_GetTime(&start);
-    	XMyproject_Set_src_V(&do_jet_tagger, (unsigned)src_mem_i);
-    	XMyproject_Set_dst_V(&do_jet_tagger, (unsigned)dst_mem_i);
+        /* Configure the accelerator */
+        XTime_GetTime(&start);
+        XMyproject_axi_Set_in_V(&do_jet_tagger, (unsigned)src_mem_i);
+        XMyproject_axi_Set_out_V(&do_jet_tagger, (unsigned)dst_mem_i);
 
-    	XMyproject_Start(&do_jet_tagger);
+        XMyproject_axi_Start(&do_jet_tagger);
 
-    	/* polling */
-    	while (!XMyproject_IsDone(&do_jet_tagger));
+        /* polling */
+        while (!XMyproject_axi_IsDone(&do_jet_tagger));
 
-    	/* get error status */
-    	//hw_flags = XMyproject_Get_return(&do_jet_tagger);
-    	XTime_GetTime(&stop);
-    	hw_elapsed += get_elapsed_time(start, stop);
+        /* get error status */
+        //hw_flags = XMyproject_axi_Get_return(&do_jet_tagger);
+        XTime_GetTime(&stop);
+        hw_elapsed += get_elapsed_time(start, stop);
 
-    	src_mem_i += src_FEATURE_COUNT;
-    	dst_mem_i += dst_FEATURE_COUNT;
+        src_mem_i += src_FEATURE_COUNT;
+        dst_mem_i += dst_FEATURE_COUNT;
     }
 
-	XTime_GetTime(&start);
-	Xil_DCacheFlushRange((UINTPTR)dst_mem, OUTPUT_N_ELEMENTS * sizeof(unsigned short));
-	XTime_GetTime(&stop);
-	cache_elapsed += get_elapsed_time(start, stop);
+    XTime_GetTime(&start);
+    Xil_DCacheFlushRange((UINTPTR)dst_mem, OUTPUT_N_ELEMENTS * sizeof(unsigned short));
+    XTime_GetTime(&stop);
+    cache_elapsed += get_elapsed_time(start, stop);
 
     /* ****** VALIDATION ****** */
 

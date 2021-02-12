@@ -2,6 +2,10 @@ all:
 	@echo "INFO: make <TAB> for targets"
 .PHONY: all
 
+jupyter:
+	jupyter notebook
+.PHONY:
+
 clean:
 	@rm -f *.npy *.png *.log *.jou
 	@rm -rf hls/*prj
