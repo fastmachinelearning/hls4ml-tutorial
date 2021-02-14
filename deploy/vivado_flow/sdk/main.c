@@ -55,6 +55,8 @@
 
 #define MAX_PRINT_ELEMENTS (4)
 
+#define ITERATION_FACTOR (1000000)
+
 const unsigned INPUT_N_ELEMENTS = src_SAMPLE_COUNT*src_FEATURE_COUNT;
 const unsigned OUTPUT_N_ELEMENTS = dst_SAMPLE_COUNT*dst_FEATURE_COUNT;
 
@@ -235,44 +237,53 @@ int main(int argc, char** argv)
     XTime_GetTime(&stop);
     sw_elapsed = get_elapsed_time(start, stop);
 
+#ifdef __DEBUG__
+    printf("INFO: Number of accelerator invocations: %u (= %u * %u)\n\r", ITERATION_FACTOR*src_SAMPLE_COUNT, ITERATION_FACTOR, src_SAMPLE_COUNT);
+    printf("INFO:   - Iteration factor: %u\n\r", ITERATION_FACTOR);
+    printf("INFO:   - Sample count : %u\n\r", src_SAMPLE_COUNT);
+#endif
+
     /* ****** ACCELERATOR ****** */
     xil_printf("INFO: Press any key to start the accelerator: ");
     dummy = inbyte();
     printf("\n\rINFO: \n\r");
 
-    XTime_GetTime(&start);
-    Xil_DCacheFlushRange((UINTPTR)src_mem, INPUT_N_ELEMENTS * sizeof(unsigned short));
-    Xil_DCacheFlushRange((UINTPTR)dst_mem, OUTPUT_N_ELEMENTS * sizeof(unsigned short));
-    Xil_DCacheFlushRange((UINTPTR)gld_mem, OUTPUT_N_ELEMENTS * sizeof(unsigned short));
-    XTime_GetTime(&stop);
-    cache_elapsed = get_elapsed_time(start, stop);
-
 #ifdef __DEBUG__
     printf("INFO: Configure and start accelerator\n\r");
 #endif
 
-    unsigned short *src_mem_i = src_mem;
-    unsigned short *dst_mem_i = dst_mem;
+    for (unsigned j = 0; j < ITERATION_FACTOR; j++) {
 
-    for (unsigned i = 0; i < src_SAMPLE_COUNT; i++) {
-
-        /* Configure the accelerator */
         XTime_GetTime(&start);
-        XMyproject_axi_Set_in_V(&do_jet_tagger, (unsigned)src_mem_i);
-        XMyproject_axi_Set_out_V(&do_jet_tagger, (unsigned)dst_mem_i);
-
-        XMyproject_axi_Start(&do_jet_tagger);
-
-        /* polling */
-        while (!XMyproject_axi_IsDone(&do_jet_tagger));
-
-        /* get error status */
-        //hw_flags = XMyproject_axi_Get_return(&do_jet_tagger);
+        Xil_DCacheFlushRange((UINTPTR)src_mem, INPUT_N_ELEMENTS * sizeof(unsigned short));
+        Xil_DCacheFlushRange((UINTPTR)dst_mem, OUTPUT_N_ELEMENTS * sizeof(unsigned short));
+        Xil_DCacheFlushRange((UINTPTR)gld_mem, OUTPUT_N_ELEMENTS * sizeof(unsigned short));
         XTime_GetTime(&stop);
-        hw_elapsed += get_elapsed_time(start, stop);
+        cache_elapsed = get_elapsed_time(start, stop);
 
-        src_mem_i += src_FEATURE_COUNT;
-        dst_mem_i += dst_FEATURE_COUNT;
+    	unsigned short *src_mem_i = src_mem;
+    	unsigned short *dst_mem_i = dst_mem;
+
+    	for (unsigned i = 0; i < src_SAMPLE_COUNT; i++) {
+
+    		/* Configure the accelerator */
+    		XTime_GetTime(&start);
+    		XMyproject_axi_Set_in_V(&do_jet_tagger, (unsigned)src_mem_i);
+    		XMyproject_axi_Set_out_V(&do_jet_tagger, (unsigned)dst_mem_i);
+
+    		XMyproject_axi_Start(&do_jet_tagger);
+
+    		/* polling */
+    		while (!XMyproject_axi_IsDone(&do_jet_tagger));
+
+    		/* get error status */
+    		//hw_flags = XMyproject_axi_Get_return(&do_jet_tagger);
+    		XTime_GetTime(&stop);
+    		hw_elapsed += get_elapsed_time(start, stop);
+
+    		src_mem_i += src_FEATURE_COUNT;
+    		dst_mem_i += dst_FEATURE_COUNT;
+    	}
     }
 
     XTime_GetTime(&start);
