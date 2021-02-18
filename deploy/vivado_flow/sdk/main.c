@@ -4,7 +4,7 @@
  *
  */
 
-#include "xmyproject_axi.h"  /* accelerator */
+#include "xjet_tagger_axi.h"  /* accelerator */
 #include "stdio.h"       /* printf */
 #include "unistd.h"      /* sleep */
 #include "stdlib.h"
@@ -55,7 +55,7 @@
 
 #define MAX_PRINT_ELEMENTS (4)
 
-#define ITERATION_FACTOR (1000000)
+#define ITERATION_FACTOR (1)
 
 const unsigned INPUT_N_ELEMENTS = src_SAMPLE_COUNT*src_FEATURE_COUNT;
 const unsigned OUTPUT_N_ELEMENTS = dst_SAMPLE_COUNT*dst_FEATURE_COUNT;
@@ -80,17 +80,17 @@ unsigned short *dst_mem;
 #endif
 
 /* accelerator configuration */
-XMyproject_axi do_jet_tagger;
-XMyproject_axi_Config *do_jet_tagger_cfg;
+XJet_tagger_axi do_jet_tagger;
+XJet_tagger_axi_Config *do_jet_tagger_cfg;
 
 /* accelerator initialization routine */
 void init_accelerators()
 {
     printf("INFO: Initializing accelerator\n\r");
-    do_jet_tagger_cfg = XMyproject_axi_LookupConfig(XPAR_MYPROJECT_AXI_0_DEVICE_ID);
+    do_jet_tagger_cfg = XJet_tagger_axi_LookupConfig(XPAR_JET_TAGGER_AXI_DEVICE_ID);
     if (do_jet_tagger_cfg)
     {
-        int status  = XMyproject_axi_CfgInitialize(&do_jet_tagger, do_jet_tagger_cfg);
+        int status  = XJet_tagger_axi_CfgInitialize(&do_jet_tagger, do_jet_tagger_cfg);
         if (status != XST_SUCCESS)
         {
             printf("ERROR: Initializing accelerator\n\r");
@@ -268,16 +268,16 @@ int main(int argc, char** argv)
 
     		/* Configure the accelerator */
     		XTime_GetTime(&start);
-    		XMyproject_axi_Set_in_V(&do_jet_tagger, (unsigned)src_mem_i);
-    		XMyproject_axi_Set_out_V(&do_jet_tagger, (unsigned)dst_mem_i);
+    		XJet_tagger_axi_Set_in_V(&do_jet_tagger, (unsigned)src_mem_i);
+    		XJet_tagger_axi_Set_out_V(&do_jet_tagger, (unsigned)dst_mem_i);
 
-    		XMyproject_axi_Start(&do_jet_tagger);
+    		XJet_tagger_axi_Start(&do_jet_tagger);
 
     		/* polling */
-    		while (!XMyproject_axi_IsDone(&do_jet_tagger));
+    		while (!XJet_tagger_axi_IsDone(&do_jet_tagger));
 
     		/* get error status */
-    		//hw_flags = XMyproject_axi_Get_return(&do_jet_tagger);
+    		//hw_flags = XJet_tagger_axi_Get_return(&do_jet_tagger);
     		XTime_GetTime(&stop);
     		hw_elapsed += get_elapsed_time(start, stop);
 
