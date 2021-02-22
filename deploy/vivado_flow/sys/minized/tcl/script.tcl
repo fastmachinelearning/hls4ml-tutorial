@@ -57,13 +57,16 @@ set_property -dict [ list CONFIG.PCW_USE_M_AXI_GP0 {1} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_USE_S_AXI_GP0 {1} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {0} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {0} ] $zynq_ps
+set_property -dict [list CONFIG.PCW_USE_FABRIC_INTERRUPT {1} CONFIG.PCW_IRQ_F2P_INTR {1}] [get_bd_cells zynq_ps]
+
+# Under-clock CPU and DDR
+set_property -dict [list CONFIG.PCW_UIPARAM_DDR_FREQ_MHZ {200} CONFIG.PCW_APU_PERIPHERAL_FREQMHZ {50}] [get_bd_cells $zynq_ps]
 
 # Set clock frequency of programmable logic to match the HLS core frequency
 set_property -dict [ list CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {100} ] $zynq_ps
 
-## Connection of the interrupt signal
-#connect_bd_net [get_bd_pins $accname/interrupt] \
-#    [get_bd_pins zynq_ps/pl_ps_irq0]
+# Connection of the interrupt signal
+connect_bd_net [get_bd_pins $accname/interrupt] [get_bd_pins $zynq_ps/IRQ_F2P]
 
 # Connections of the different AXI channels
 connect_bd_intf_net [get_bd_intf_pins $accname/m_axi_IN_BUS] \

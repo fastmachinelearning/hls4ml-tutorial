@@ -40,7 +40,8 @@ clean:
 	rm -rf $(PROJECT_I2C)_bsp
 	rm -rf $(TOP)_platform
 	rm -rf RemoteSystemsTempFiles
-	rm -rf SDK.log
+	rm -rf *.log
+	rm -rf *.jou
 	rm -rf webtalk
 	rm -rf .Xil
 	rm -rf .metadata
