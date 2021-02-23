@@ -1,7 +1,5 @@
 .sdk
 .metadata
-jet_tagger_baremetal_polling
-jet_tagger_baremetal_polling_bsp
-jet_tagger_design_wrapper_hw_platform_0
+jet_tagger_*standalone*
 RemoteSystemsTempFiles
 SDK.log
