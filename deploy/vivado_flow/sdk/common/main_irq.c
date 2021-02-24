@@ -23,6 +23,10 @@
 #include <xscugic.h>     /* interrupt controller */
 #include <xgpiops.h>
 
+#if 0
+#include "xil_misc_psreset_api.h"
+#endif
+
 #include "platform.h"    /* platform init/cleanup functions */
 
 #include "src.h"
@@ -60,6 +64,42 @@
   (byte & 0x02 ? '1' : '0'), \
   (byte & 0x01 ? '1' : '0')
 
+#if 0
+#define INT_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c"
+#define INT_TO_BINARY(byte)  \
+  (byte & 0x80000000 ? '1' : '0'), \
+  (byte & 0x40000000 ? '1' : '0'), \
+  (byte & 0x20000000 ? '1' : '0'), \
+  (byte & 0x10000000 ? '1' : '0'), \
+  (byte & 0x8000000 ? '1' : '0'), \
+  (byte & 0x4000000 ? '1' : '0'), \
+  (byte & 0x2000000 ? '1' : '0'), \
+  (byte & 0x1000000 ? '1' : '0'), \
+  (byte & 0x800000 ? '1' : '0'), \
+  (byte & 0x400000 ? '1' : '0'), \
+  (byte & 0x200000 ? '1' : '0'), \
+  (byte & 0x100000 ? '1' : '0'), \
+  (byte & 0x80000 ? '1' : '0'), \
+  (byte & 0x40000 ? '1' : '0'), \
+  (byte & 0x20000 ? '1' : '0'), \
+  (byte & 0x10000 ? '1' : '0'), \
+  (byte & 0x8000 ? '1' : '0'), \
+  (byte & 0x4000 ? '1' : '0'), \
+  (byte & 0x2000 ? '1' : '0'), \
+  (byte & 0x1000 ? '1' : '0'), \
+  (byte & 0x800 ? '1' : '0'), \
+  (byte & 0x400 ? '1' : '0'), \
+  (byte & 0x200 ? '1' : '0'), \
+  (byte & 0x100 ? '1' : '0'), \
+  (byte & 0x80 ? '1' : '0'), \
+  (byte & 0x40 ? '1' : '0'), \
+  (byte & 0x20 ? '1' : '0'), \
+  (byte & 0x10 ? '1' : '0'), \
+  (byte & 0x08 ? '1' : '0'), \
+  (byte & 0x04 ? '1' : '0'), \
+  (byte & 0x02 ? '1' : '0'), \
+  (byte & 0x01 ? '1' : '0')
+#endif
 
 #define MAX_PRINT_ELEMENTS (4)
 
@@ -108,14 +148,10 @@ int disable_peripherals()
 	}
 
 	/*
-	 * LED over the GPIO
+	 * LED and USB GPIO pins
 	 */
 	u32 led_r_pin = 52;
 	u32 led_g_pin = 53;
-
-	/*
-	 * USB reset over the GPIO
-	 */
 	u32 usb_rst_pin = 7;
 
 	/*
@@ -129,38 +165,10 @@ int disable_peripherals()
 	XGpioPs_SetDirectionPin(&gpio_ps, usb_rst_pin, 1);
 	XGpioPs_SetOutputEnablePin(&gpio_ps, usb_rst_pin, 1);
 
-
-	/* set the GPIO output to be low */
-	//XGpioPs_WritePin(&gpio_ps, output_pin, 0x1);
-#if 0
-	for (counter = 0; counter < 4; counter++)
-	{
-		sleep(1);
-		XGpioPs_WritePin(&gpio_ps, led_r_pin, 0x1);
-		sleep(1);
-		XGpioPs_WritePin(&gpio_ps, led_g_pin, 0x0);
-		sleep(1);
-		XGpioPs_WritePin(&gpio_ps, led_r_pin, 0x0);
-		sleep(1);
-		XGpioPs_WritePin(&gpio_ps, led_g_pin, 0x1);
-	}
-#endif
+	/* set the GPIO outputs to be low (disabled)*/
 	XGpioPs_WritePin(&gpio_ps, led_r_pin, 0x0);
 	XGpioPs_WritePin(&gpio_ps, led_g_pin, 0x0);
-
-	/* disable USB */
-	//XGpioPs_WritePin(&gpio_ps, usb_rst_pin, 0x1);
-	xil_printf("INFO: Press any key to test USB reset: ");
-	u32 dummy = inbyte();
-	for (counter = 0; counter < 20; counter++)
-	{
-		sleep(10);
-		xil_printf("USB OFF\n\r");
-		XGpioPs_WritePin(&gpio_ps, usb_rst_pin, 0x0);
-		sleep(10);
-		xil_printf("USB ON\n\r");
-		XGpioPs_WritePin(&gpio_ps, usb_rst_pin, 0x1);
-	}
+	XGpioPs_WritePin(&gpio_ps, usb_rst_pin, 0x0);
 
 	return XST_SUCCESS;
 }
@@ -360,6 +368,11 @@ int main(int argc, char** argv)
     init_platform();
 
     disable_peripherals();
+
+#if 0
+    xil_printf("INFO: XSLCR_BASEADDR: [0x%X] = 0x%X ("INT_TO_BINARY_PATTERN")\n\r", XSLCR_BASEADDR, Xil_In32(XSLCR_BASEADDR), INT_TO_BINARY(Xil_In32(XSLCR_BASEADDR)));
+    xil_printf("INFO: XSLCR_ARM_CLK_CTRL_ADDR: [0x%X] = 0x%X ("INT_TO_BINARY_PATTERN")\n\r", XSLCR_ARM_CLK_CTRL_ADDR, Xil_In32(XSLCR_ARM_CLK_CTRL_ADDR), INT_TO_BINARY(Xil_In32(XSLCR_ARM_CLK_CTRL_ADDR)));
+#endif
 
     /* initialize the accelerator(s) */
     init_accelerators();

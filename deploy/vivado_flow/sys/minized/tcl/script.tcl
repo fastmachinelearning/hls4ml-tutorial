@@ -19,6 +19,9 @@ set_property board_part em.avnet.com:minized:part0:1.2 [current_project]
 set_property ip_repo_paths ../../hls/minized_m_axi_16_serial_prj/jet_tagger_prj [current_project]
 update_ip_catalog -rebuild
 
+# Add constraint file
+import_files -fileset constrs_1 ../common/minized_pins.xdc
+
 # Create the design block
 set design_name jet_tagger_design
 create_bd_design $design_name
@@ -97,6 +100,14 @@ delete_bd_objs [get_bd_addr_segs -excluded jet_tagger_axi/Data_m_axi_IN_BUS/SEG_
 delete_bd_objs [get_bd_addr_segs -excluded jet_tagger_axi/Data_m_axi_IN_BUS/SEG_zynq_ps_GP0_M_AXI_GP0]
 delete_bd_objs [get_bd_addr_segs -excluded jet_tagger_axi/Data_m_axi_OUT_BUS/SEG_zynq_ps_GP0_IOP]
 delete_bd_objs [get_bd_addr_segs -excluded jet_tagger_axi/Data_m_axi_OUT_BUS/SEG_zynq_ps_GP0_M_AXI_GP0]
+
+# Add and wire ports to disable peripherals
+create_bd_port -dir O WL_REG_ON
+create_bd_port -dir O BT_REG_ON
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 REG_OFF
+set_property -dict [list CONFIG.CONST_VAL {0}] [get_bd_cells REG_OFF]
+connect_bd_net [get_bd_ports BT_REG_ON] [get_bd_pins REG_OFF/dout]
+connect_bd_net [get_bd_ports WL_REG_ON] [get_bd_pins REG_OFF/dout]
 
 # Validate the design block we created
 validate_bd_design
