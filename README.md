@@ -10,6 +10,7 @@
         + [Update `hls4ml` Package in the Conda Environment](#update-hls4ml-package-in-the-conda-environment)
         + [Run Jupyter Notebook](#run-jupyter-notebook)
     - [Running Jupyter Notebook on a Remote Server](#running-jupyter-notebook-on-a-remote-server)
+    - [Update Tutorial Repository](#update-tutorial-repository)
 
 <!-- vim-markdown-toc -->
 
@@ -90,3 +91,42 @@ This is the case you have a `<remote_host>` that you can use, e.g., a server dif
    ssh -4 -L 8080:localhost:<port> <remote_user>@<remote_host>
    ```
 3. Open a browser from your local machine and navigate to `http://localhost:8080`, the Jupyter Notebook web interface. Replace 8080 with your port number used in step 1.
+
+### Update Tutorial Repository
+
+If you have previously cloned the tutorial repository, you may need to get the latest versions of the notebooks.
+
+First check the status of your repository:
+```
+cd hls4ml-tutorial
+make clean
+git status 
+```
+
+You may have some _modified_ notebooks. For example:
+
+```
+# On branch csee-e6868-spring2021
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#   modified:   part1_getting_started.ipynb
+#   modified:   part2_advanced_config.ipynb
+#   modified:   part2b_advanced_config.ipynb
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+You can make a copy of those modified notebooks if you had significat changes, otherwise the easiest thing to do is to discard those changes.
+
+**ATTENTION** You will loose your local changes!
+
+```
+git checkout *.ipynb
+```
+
+At this point, you can update you copy of the repository:
+```
+git pull
+```
