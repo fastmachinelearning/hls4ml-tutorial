@@ -1,5 +1,6 @@
 .sdk
 .metadata
 jet_tagger_*standalone*
+jet_tagger_*platform*
 RemoteSystemsTempFiles
 SDK.log
