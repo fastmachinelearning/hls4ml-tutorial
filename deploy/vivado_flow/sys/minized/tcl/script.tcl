@@ -49,6 +49,7 @@ set_property -dict [ list CONFIG.NUM_SI {2} CONFIG.NUM_MI {1} ] $axi_interconnec
 # Set some properties for processing_system_0 after running design automation
 apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 \
      -config { make_external "FIXED_IO, DDR" apply_board_preset "1" Master "Disable" Slave "Disable" }  $zynq_ps
+set_property -dict [list CONFIG.PCW_EN_CLK1_PORT {0} ] $zynq_ps 
 set_property -dict [ list CONFIG.PCW_QSPI_PERIPHERAL_ENABLE {0} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_QSPI_GRP_SINGLE_SS_ENABLE {1} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_SD0_PERIPHERAL_ENABLE {0} ] $zynq_ps
@@ -60,6 +61,8 @@ set_property -dict [ list CONFIG.PCW_USE_M_AXI_GP0 {1} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_USE_S_AXI_GP0 {1} ] $zynq_ps
 set_property -dict [list CONFIG.PCW_USE_FABRIC_INTERRUPT {1} CONFIG.PCW_IRQ_F2P_INTR {1}] [get_bd_cells zynq_ps]
 set_property -dict [list CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} CONFIG.PCW_GPIO_MIO_GPIO_IO {MIO} CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {0}] [get_bd_cells zynq_ps]
+# Use DDR PLL only
+set_property -dict [list CONFIG.PCW_CPU_PERIPHERAL_CLKSRC {DDR PLL} CONFIG.PCW_FCLK0_PERIPHERAL_CLKSRC {DDR PLL}] [get_bd_cells zynq_ps]
 
 # Under-clock CPU and DDR
 set_property -dict [list CONFIG.PCW_UIPARAM_DDR_FREQ_MHZ {200} CONFIG.PCW_APU_PERIPHERAL_FREQMHZ {50}] [get_bd_cells $zynq_ps]

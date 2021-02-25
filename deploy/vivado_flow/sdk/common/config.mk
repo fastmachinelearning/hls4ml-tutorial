@@ -29,7 +29,7 @@ gui:
 	xsdk --workspace .
 .PHONY: gui
 
-SAMPLE_COUNT=16
+SAMPLE_COUNT=64
 #SAMPLE_COUNT=166000
 
 data:
