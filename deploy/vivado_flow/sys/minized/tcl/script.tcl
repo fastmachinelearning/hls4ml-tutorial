@@ -47,9 +47,12 @@ set axi_interconnect_1 [ create_bd_cell -type ip -vlnv $axi_inter axi_interconne
 set_property -dict [ list CONFIG.NUM_SI {2} CONFIG.NUM_MI {1} ] $axi_interconnect_1
 
 # Set some properties for processing_system_0 after running design automation
-apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 \
+#apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 \
      -config { make_external "FIXED_IO, DDR" apply_board_preset "1" Master "Disable" Slave "Disable" }  $zynq_ps
-set_property -dict [list CONFIG.PCW_EN_CLK1_PORT {0} ] $zynq_ps 
+apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 \
+     -config { apply_board_preset "1" Master "Disable" Slave "Disable" }  $zynq_ps
+delete_bd_objs [get_bd_intf_nets zynq_ps_DDR] [get_bd_intf_ports DDR]
+set_property -dict [list CONFIG.PCW_EN_CLK1_PORT {0} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_QSPI_PERIPHERAL_ENABLE {0} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_QSPI_GRP_SINGLE_SS_ENABLE {1} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_SD0_PERIPHERAL_ENABLE {0} ] $zynq_ps
@@ -61,8 +64,10 @@ set_property -dict [ list CONFIG.PCW_USE_M_AXI_GP0 {1} ] $zynq_ps
 set_property -dict [ list CONFIG.PCW_USE_S_AXI_GP0 {1} ] $zynq_ps
 set_property -dict [list CONFIG.PCW_USE_FABRIC_INTERRUPT {1} CONFIG.PCW_IRQ_F2P_INTR {1}] [get_bd_cells zynq_ps]
 set_property -dict [list CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} CONFIG.PCW_GPIO_MIO_GPIO_IO {MIO} CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {0}] [get_bd_cells zynq_ps]
-# Use DDR PLL only
-set_property -dict [list CONFIG.PCW_CPU_PERIPHERAL_CLKSRC {DDR PLL} CONFIG.PCW_FCLK0_PERIPHERAL_CLKSRC {DDR PLL}] [get_bd_cells zynq_ps]
+
+# Use ARM PLL only
+set_property -dict [list CONFIG.PCW_CPU_PERIPHERAL_CLKSRC {ARM PLL} CONFIG.PCW_FCLK0_PERIPHERAL_CLKSRC {ARM PLL}] [get_bd_cells zynq_ps]
+set_property -dict [list CONFIG.PCW_UIPARAM_DDR_ENABLE {0} ] $zynq_ps
 
 # Under-clock CPU and DDR
 set_property -dict [list CONFIG.PCW_UIPARAM_DDR_FREQ_MHZ {200} CONFIG.PCW_APU_PERIPHERAL_FREQMHZ {50}] [get_bd_cells $zynq_ps]
@@ -97,7 +102,7 @@ apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config \
 apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config \
     {Clk "/zynq_ps/FCLK_CLK0 (50 MHz)" }  [get_bd_pins axi_interconnect_1/ACLK]
 
-# Assign the address in memory for the accelerator execution
+# Assign the addresses in memory for the accelerator execution
 assign_bd_address
 delete_bd_objs [get_bd_addr_segs -excluded jet_tagger_axi/Data_m_axi_IN_BUS/SEG_zynq_ps_GP0_IOP]
 delete_bd_objs [get_bd_addr_segs -excluded jet_tagger_axi/Data_m_axi_IN_BUS/SEG_zynq_ps_GP0_M_AXI_GP0]
@@ -111,6 +116,17 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 REG_OFF
 set_property -dict [list CONFIG.CONST_VAL {0}] [get_bd_cells REG_OFF]
 connect_bd_net [get_bd_ports BT_REG_ON] [get_bd_pins REG_OFF/dout]
 connect_bd_net [get_bd_ports WL_REG_ON] [get_bd_pins REG_OFF/dout]
+
+# Apply Power optimization for implementation
+#set_property STEPS.OPT_DESIGN.ARGS.DIRECTIVE NoBramPowerOpt [get_runs impl_1]
+#set_property STEPS.POWER_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
+
+# Customize PLL multipliers
+set_property -dict [list CONFIG.PCW_OVERRIDE_BASIC_CLOCK {1}] $zynq_ps
+set_property -dict [list CONFIG.PCW_ARMPLL_CTRL_FBDIV {24}] $zynq_ps
+set_property -dict [list CONFIG.PCW_CPU_PERIPHERAL_DIVISOR0 {16}] $zynq_ps
+set_property -dict [list CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {16}] $zynq_ps
+set_property -dict [list CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {1}] $zynq_ps
 
 # Validate the design block we created
 validate_bd_design
@@ -126,6 +142,10 @@ add_files -norecurse $proj_dir/$proj.srcs/sources_1/bd/$design_name/hdl/$design_
 launch_runs synth_1
 wait_on_run -timeout 360 synth_1
 
+## Power optimization
+#set_property STEPS.OPT_DESIGN.ARGS.DIRECTIVE NoBramPowerOpt [get_runs impl_1]
+#set_property STEPS.POWER_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
+
 # Run the implementation step
 puts "INFO: Run bistream generation..."
 launch_runs impl_1 -to_step write_bitstream
@@ -137,6 +157,4 @@ if {[get_property PROGRESS [get_runs impl_1]] != "100%"} {
 
 # Export the bitstream and the hardware for the SDK
 puts "INFO: Export hardware..."
-file copy -force $proj_dir/$proj.runs/impl_1/$design_name\_wrapper.sysdef \
-    ../../sdk/minized/hdf/$design_name\_m_axi_32_serial_wrapper.hdf
-
+file copy -force $proj_dir/$proj.runs/impl_1/$design_name\_wrapper.sysdef ../../sdk/minized/hdf/$design_name\_m_axi_32_serial_wrapper.hdf

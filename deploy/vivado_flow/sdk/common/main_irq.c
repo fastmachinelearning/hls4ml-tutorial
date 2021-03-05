@@ -245,7 +245,6 @@ int disable_peripherals()
 	 * via the central interconnect using load and store instructions.
 	 * See: https://www.xilinx.com/support/documentation/user_guides/ug585-Zynq-7000-TRM.pdf#page=114
 	 */
-#if 0
 	u32 data;
 
 	/* unlock SLCR registers which can be protected by default */
@@ -256,35 +255,114 @@ int disable_peripherals()
 	/*
 	 * AMBA peripheral clock control
 	 */
+#if 0
 	const unsigned APER_CLK_CTRL = 0XF800012C;
 
 	data = Xil_In32(APER_CLK_CTRL);
-	xil_printf("INFO: Register slcr.APER_CLK_CTRL @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
+	xil_printf("INFO: Register slcr.APER_CLK_CTR    (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
 	/* keep alive only clock to UART 1 */
 	data = /*0x1 + 0x4 + 0x8 + 0x40000 + 0x80000 +*/ 0x200000 /*+ 0x400000 + 0x1000000*/;
 	Xil_Out32(APER_CLK_CTRL, data);
-	xil_printf("INFO: Register slcr.APER_CLK_CTRL @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
+#endif
 
-	data = Xil_In32(XSLCR_ARM_CLK_CTRL_ADDR);
-	xil_printf("INFO: Register slcr.ARM_CLK_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
+	//data = Xil_In32(XSLCR_ARM_CLK_CTRL_ADDR);
+	//xil_printf("INFO: Register slcr.ARM_CLK_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
 
 	/*
 	 * DDR clock control
+	 *
+	 * https://0xstubs.org/zynq-ddr-self-refresh
+	 *
+	 * Procedure as described in section 10.9.6
+	 * of the Zynq TRM:
+	 *
+	 * Register addresses and bit offsets are found in
+	 * Appendix B of the TRM.
 	 */
+
+#if 0
+	const unsigned XDDRC_CTRL_REG1 = XDDRC_CTRL_BASEADDR + 0x60;
+	const unsigned XDDRC_CTRL_REG3 = XDDRC_CTRL_BASEADDR + 0x20;
+	const unsigned DCI_CLK_CTRL = 0XF8000128;
+	data = Xil_In32(XDDRC_CTRL_REG1);
+	xil_printf("INFO: Register slcr.XDDRC_CTRL_REG1 (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XDDRC_CTRL_REG1, data, INT_TO_BINARY(data));
+	data |= 0x00001000;
+	Xil_Out32(XDDRC_CTRL_REG1, data);
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XDDRC_CTRL_REG1, data, INT_TO_BINARY(data));
+
+	data = Xil_In32(XDDRC_CTRL_REG3);
+	xil_printf("INFO: Register slcr.XDDRC_CTRL_REG1 (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XDDRC_CTRL_REG3, data, INT_TO_BINARY(data));
+	data |= 0x00100000;
+	Xil_Out32(XDDRC_CTRL_REG3, data);
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XDDRC_CTRL_REG3, data, INT_TO_BINARY(data));
+#endif
+
+	/* slcr.DDR_CLK_CTRL[DDR_2XCLKACT] = 0 */
+	/* slcr.DDR_CLK_CTRL[DDR_3XCLKACT] = 0 */
 	data = Xil_In32(XSLCR_DDR_CLK_CTRL_ADDR);
-	xil_printf("INFO: Register slcr.DDR_CLK_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_DDR_CLK_CTRL_ADDR, data, INT_TO_BINARY(data));
-	data = 0x1 + /*0x2 +*/ 0x800000 + 0x30000000;
+	xil_printf("INFO: Register slcr.DDR_CLK_CTRL    (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_DDR_CLK_CTRL_ADDR, data, INT_TO_BINARY(data));
+	data &= ~(1<<1); /* 0xFFFFFFFD */
+	data &= ~(1<<0); /* 0xFFFFFFFE */
 	Xil_Out32(XSLCR_DDR_CLK_CTRL_ADDR, data);
-	xil_printf("INFO: Register slcr.DDR_CLK_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", APER_CLK_CTRL, data, INT_TO_BINARY(data));
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_DDR_CLK_CTRL_ADDR, data, INT_TO_BINARY(data));
+
+	/* slcr.DCI_CLK_CTRL[CLKACT] = 0 */
+#if 0
+	data = Xil_In32(DCI_CLK_CTRL);
+	xil_printf("INFO: Register slcr.DCI_CLK_CTRL    (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", DCI_CLK_CTRL, data, INT_TO_BINARY(data));
+	data &= ~(1 << 0); /* 0xFFFFFFFD */
+	Xil_Out32(DCI_CLK_CTRL, data);
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", DCI_CLK_CTRL, data, INT_TO_BINARY(data));
+#endif
+
 
 	/*
 	 * ARM PLL control
 	 */
-	data = Xil_In32(XSLCR_ARM_PLL_CTRL_ADDR);
-	xil_printf("INFO: Register slcr.ARM_PLL_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_ARM_PLL_CTRL_ADDR, data, INT_TO_BINARY(data));
+	//data = Xil_In32(XSLCR_ARM_PLL_CTRL_ADDR);
+	//xil_printf("INFO: Register slcr.ARM_PLL_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_ARM_PLL_CTRL_ADDR, data, INT_TO_BINARY(data));
 	//data |= 0x00000003;
-	data = 0x00030003;
-	xil_printf("INFO: Register slcr.ARM_PLL_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_ARM_PLL_CTRL_ADDR, data, INT_TO_BINARY(data));
+	//data = 0x00030003;
+	//xil_printf("INFO: Register slcr.ARM_PLL_CTRL  @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_ARM_PLL_CTRL_ADDR, data, INT_TO_BINARY(data));
+
+	/*
+	 * DDR PLL control
+     */
+#if 0
+	data = Xil_In32(XSLCR_DDR_PLL_CTRL_ADDR);
+	xil_printf("INFO: Register slcr.DDR_PLL_CTRL    (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_DDR_PLL_CTRL_ADDR, data, INT_TO_BINARY(data));
+	//data |= 0x00000003;
+	//data = 0x0;
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XSLCR_DDR_PLL_CTRL_ADDR, data, INT_TO_BINARY(data));
+#endif
+
+	/* Enable dynamic clock gating (CP15) */
+	/* https://developer.arm.com/documentation/ddi0388/f/System-Control/Register-descriptions/Power-Control-Register?lang=en
+	 * https://github.com/imrickysu/ZYNQ-Cookbook/blob/master/recipe/HowToOperateCP15.md
+	 */
+#if 0
+	data = mfcp(XREG_CP15_POWER_CTRL);
+	xil_printf("INFO: Register XREG_CP15_POWER_CTRL (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XREG_CP15_POWER_CTRL, data, INT_TO_BINARY(data));
+	data |= 0x1;
+	mtcp(XREG_CP15_POWER_CTRL, data);
+	data = mfcp(XREG_CP15_POWER_CTRL);
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", XREG_CP15_POWER_CTRL, data, INT_TO_BINARY(data));
+	usleep(10000000);
+#endif
+
+
+	/* Enable L2 cache standby mode and dynamic clock gating */
+#if 0
+	const unsigned L2C_PL310_REG15 = 0xF8F02F80;
+
+	data = Xil_In32(L2C_PL310_REG15);
+	xil_printf("INFO: Register L2CPL310_REG15       (default) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", L2C_PL310_REG15, data, INT_TO_BINARY(data));
+	data = 0x3;
+	Xil_Out32(L2C_PL310_REG15, data);
+	data = Xil_In32(L2C_PL310_REG15);
+	xil_printf("INFO:                               (updated) @ 0x%08X : 0x%08X "INT_TO_BINARY_PATTERN"\n\r", L2C_PL310_REG15, data, INT_TO_BINARY(data));
+	usleep(1000000);
 #endif
 
 	return XST_SUCCESS;
@@ -552,7 +630,7 @@ int main(int argc, char** argv)
 
     		jet_tagger_axi_start(&do_jet_tagger);
 
-#if 0
+#if 1
     		wfi();
 #else
     		/* wait for interrupt */
