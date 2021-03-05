@@ -127,6 +127,12 @@ set_property -dict [list CONFIG.PCW_ARMPLL_CTRL_FBDIV {24}] $zynq_ps
 set_property -dict [list CONFIG.PCW_CPU_PERIPHERAL_DIVISOR0 {16}] $zynq_ps
 set_property -dict [list CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {16}] $zynq_ps
 set_property -dict [list CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {1}] $zynq_ps
+set_property -dict [list CONFIG.PCW_UART_PERIPHERAL_DIVISOR0 {8} CONFIG.PCW_IOPLL_CTRL_FBDIV {24} CONFIG.PCW_DDRPLL_CTRL_FBDIV {24} CONFIG.PCW_UART_PERIPHERAL_CLKSRC {ARM PLL}] [get_bd_cells zynq_ps]
+
+#set_property -dict [list CONFIG.PCW_UART_PERIPHERAL_DIVISOR0 {8}] $zynq_ps
+#set_property -dict [list CONFIG.PCW_IOPLL_CTRL_FBDIV {24}] $zynq_ps
+#set_property -dict [list CONFIG.PCW_DDRPLL_CTRL_FBDIV {24}] $zynq_ps
+#set_property -dict [list CONFIG.PCW_UART_PERIPHERAL_CLKSRC {ARM PLL}] $zynq_ps
 
 # Validate the design block we created
 validate_bd_design
