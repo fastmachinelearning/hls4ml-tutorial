@@ -43,84 +43,84 @@ static const unsigned PS_LED_G_PIN = 53u;
 static unsigned PBSW_PIN = 0;
 
 int test_leds(unsigned iterations) {
-	int status;
-	unsigned i;
+    int status;
+    unsigned i;
 
-	/* Initialize the PS GPIO Driver. */
-	gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
-	status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
-	if (status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
+    /* Initialize the PS GPIO Driver. */
+    gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
+    status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
+    if (status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
 
-	/* Set the direction of the GPIO pin and enable the output. */
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1);
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1);
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
+    /* Set the direction of the GPIO pin and enable the output. */
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1);
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1);
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
 
-	/* Write the desired output value to the GPIO pin. */
-	xil_printf("INFO: Testing green and red LEDs...\n\r");
-	for (i = 0; i < iterations; i++) {
-		XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-		XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x1);
-		sleep(1);
-		XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x1);
-		XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
-		sleep(1);
-	}
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
-	xil_printf("INFO: Done! Turn off LEDs.\n\r");
+    /* Write the desired output value to the GPIO pin. */
+    xil_printf("INFO: Testing green and red LEDs...\n\r");
+    for (i = 0; i < iterations; i++) {
+        XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
+        XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x1);
+        sleep(1);
+        XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x1);
+        XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
+        sleep(1);
+    }
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
+    xil_printf("INFO: Done! Turn off LEDs.\n\r");
 
-	return XST_SUCCESS;
+    return XST_SUCCESS;
 }
 
 int test_pushbutton() {
-	int status;
+    int status;
 
-	/* Initialize the PS GPIO Driver. */
-	gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
-	status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
-	if (status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
+    /* Initialize the PS GPIO Driver. */
+    gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
+    status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
+    if (status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
 
-	/* Set the direction of the GPIO pin and enable the output. */
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1); /* output pint */
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1); /* output pint */
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
-	XGpioPs_SetDirectionPin(&gpio_ps, PBSW_PIN, 0x0); /* input pint */
+    /* Set the direction of the GPIO pin and enable the output. */
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1); /* output pint */
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1); /* output pint */
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
+    XGpioPs_SetDirectionPin(&gpio_ps, PBSW_PIN, 0x0); /* input pint */
 
-	/* Reset LEDs */
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
+    /* Reset LEDs */
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
 
-	xil_printf("INFO: Testing PS button. Push it 5 times...\n\r");
-	int toggle = 0;
-	int sw = 0;
-	unsigned i;
-	while (1) {
-		/* Read the value from the GPIO pin. */
-		sw = XGpioPs_ReadPin(&gpio_ps, PBSW_PIN);
-		sleep(1); /* Simple debouncing implementation, just sleep. */
+    xil_printf("INFO: Testing PS button. Push it 5 times...\n\r");
+    int toggle = 0;
+    int sw = 0;
+    unsigned i;
+    while (1) {
+        /* Read the value from the GPIO pin. */
+        sw = XGpioPs_ReadPin(&gpio_ps, PBSW_PIN);
+        sleep(1); /* Simple debouncing implementation, just sleep. */
 
-		if (sw == 1) {
-			toggle = !toggle;
-			i++;
-			xil_printf("INFO:   %u\n\r", i);
-		}
+        if (sw == 1) {
+            toggle = !toggle;
+            i++;
+            xil_printf("INFO:   %u\n\r", i);
+        }
 
-		XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, toggle);
-		XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, !toggle);
-		if (i >= 5) break;
-	}
-	xil_printf("INFO: Done! Turn off LEDs.\n\r");
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
+        XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, toggle);
+        XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, !toggle);
+        if (i >= 5) break;
+    }
+    xil_printf("INFO: Done! Turn off LEDs.\n\r");
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
 
-	return XST_SUCCESS;
+    return XST_SUCCESS;
 }
 
 #ifdef __INTERRUPT__
@@ -143,107 +143,107 @@ int test_pushbutton() {
 #define aper_reg        0xF800012C
 
 static void interrupt_handler_pushbutton(void *callback, int bank, u32 status) {
-	static unsigned toggle = 0;
+    static unsigned toggle = 0;
 
-	u32 ddrc;
+    u32 ddrc;
 
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, toggle);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, !toggle);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, toggle);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, !toggle);
 
 #if 1
-	if (toggle) {
-		ddrc = 0x1177cb4; //enable standby mode and dynamic clock gating
-		Xil_Out32(arm_clk_ctrl, ddrc);
+    if (toggle) {
+        ddrc = 0x1177cb4; //enable standby mode and dynamic clock gating
+        Xil_Out32(arm_clk_ctrl, ddrc);
 
-		ddrc = Xil_In32(io_pll_ctrl);
-		//printf("io_pll_ctrl = %x\n\r", (unsigned int) ddrc);
-		ddrc &= ~0x00000002; //remove standby mode and dynamic clock gating
-		Xil_Out32(io_pll_ctrl, ddrc);
+        ddrc = Xil_In32(io_pll_ctrl);
+        //printf("io_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc &= ~0x00000002; //remove standby mode and dynamic clock gating
+        Xil_Out32(io_pll_ctrl, ddrc);
 
-		ddrc = Xil_In32(ddr_pll_ctrl);
-		//printf("ddr_pll_ctrl = %x\n\r", (unsigned int) ddrc);
-		ddrc &= ~0x00000002; //remove standby mode and dynamic clock gating
-		Xil_Out32(ddr_pll_ctrl, ddrc);
+        ddrc = Xil_In32(ddr_pll_ctrl);
+        //printf("ddr_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc &= ~0x00000002; //remove standby mode and dynamic clock gating
+        Xil_Out32(ddr_pll_ctrl, ddrc);
 
-		ddrc = Xil_In32(arm_pll_ctrl);
-		//printf("arm_pll_ctrl = %x\n\r", (unsigned int) ddrc);
-		ddrc &= ~0x00000002; //remove standby mode and dynamic clock gating
-		Xil_Out32(arm_pll_ctrl, ddrc);
+        ddrc = Xil_In32(arm_pll_ctrl);
+        //printf("arm_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc &= ~0x00000002; //remove standby mode and dynamic clock gating
+        Xil_Out32(arm_pll_ctrl, ddrc);
 
-		ddrc = Xil_In32(pll_status);
-		while(ddrc != 0x0000003f){ //wait for DLL to lock and be stable
-			ddrc = Xil_In32(pll_status);
-		}
+        ddrc = Xil_In32(pll_status);
+        while(ddrc != 0x0000003f){ //wait for DLL to lock and be stable
+            ddrc = Xil_In32(pll_status);
+        }
 
-		ddrc = Xil_In32(arm_pll_ctrl);
-		//printf("arm_pll_ctrl = %x\n\r", (unsigned int) ddrc);
-		ddrc &= ~0x00000010; //enable standby mode and dynamic clock gating
-		Xil_Out32(arm_pll_ctrl, ddrc);
-		ddrc = Xil_In32(arm_pll_ctrl);
-		//printf("arm_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc = Xil_In32(arm_pll_ctrl);
+        //printf("arm_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc &= ~0x00000010; //enable standby mode and dynamic clock gating
+        Xil_Out32(arm_pll_ctrl, ddrc);
+        ddrc = Xil_In32(arm_pll_ctrl);
+        //printf("arm_pll_ctrl = %x\n\r", (unsigned int) ddrc);
 
-		ddrc = Xil_In32(ddr_pll_ctrl);
-		//printf("ddr_pll_ctrl = %x\n\r", (unsigned int) ddrc);
-		ddrc &= ~0x00000010; //enable standby mode and dynamic clock gating
-		Xil_Out32(ddr_pll_ctrl, ddrc);
-		ddrc = Xil_In32(ddr_pll_ctrl);
-		//printf("ddr_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc = Xil_In32(ddr_pll_ctrl);
+        //printf("ddr_pll_ctrl = %x\n\r", (unsigned int) ddrc);
+        ddrc &= ~0x00000010; //enable standby mode and dynamic clock gating
+        Xil_Out32(ddr_pll_ctrl, ddrc);
+        ddrc = Xil_In32(ddr_pll_ctrl);
+        //printf("ddr_pll_ctrl = %x\n\r", (unsigned int) ddrc);
 
-		ddrc = Xil_In32(io_pll_ctrl);
-		ddrc &= ~0x00000010; //enable standby mode and dynamic clock gating
-		Xil_Out32(io_pll_ctrl, ddrc);
-		ddrc = Xil_In32(io_pll_ctrl);
-	}
+        ddrc = Xil_In32(io_pll_ctrl);
+        ddrc &= ~0x00000010; //enable standby mode and dynamic clock gating
+        Xil_Out32(io_pll_ctrl, ddrc);
+        ddrc = Xil_In32(io_pll_ctrl);
+    }
 #endif
 
-	toggle = !toggle;
+    toggle = !toggle;
 }
 
 static int setup_interrupt_system_pushbutton(XScuGic *interrupt_controller, XGpioPs *gpio_ps, u16 gpio_interrupt_id) {
 
-	int status;
+    int status;
 
-	/* Instance of the interrupt controller */
-	XScuGic_Config *interrupt_controller_config;
+    /* Instance of the interrupt controller */
+    XScuGic_Config *interrupt_controller_config;
 
-	Xil_ExceptionInit();
+    Xil_ExceptionInit();
 
-	/*
-	 * Initialize the interrupt controller driver so that it is ready to
-	 * use.
-	 */
-	interrupt_controller_config = XScuGic_LookupConfig(XPAR_SCUGIC_SINGLE_DEVICE_ID);
-	if (interrupt_controller_config == NULL) {
-		return XST_FAILURE;
-	}
+    /*
+     * Initialize the interrupt controller driver so that it is ready to
+     * use.
+     */
+    interrupt_controller_config = XScuGic_LookupConfig(XPAR_SCUGIC_SINGLE_DEVICE_ID);
+    if (interrupt_controller_config == NULL) {
+        return XST_FAILURE;
+    }
 
-	status = XScuGic_CfgInitialize(interrupt_controller, interrupt_controller_config, interrupt_controller_config->CpuBaseAddress);
+    status = XScuGic_CfgInitialize(interrupt_controller, interrupt_controller_config, interrupt_controller_config->CpuBaseAddress);
     if (status != XST_SUCCESS) {
         xil_printf("INFO: GIC configuration failed!\n\r");
         return XST_FAILURE;
     }
 
-	/*
-	 * Connect the interrupt controller interrupt handler to the hardware
-	 * interrupt handling logic in the processor.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler, interrupt_controller);
+    /*
+     * Connect the interrupt controller interrupt handler to the hardware
+     * interrupt handling logic in the processor.
+     */
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler, interrupt_controller);
 
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device.
-	 */
-	status = XScuGic_Connect(interrupt_controller, gpio_interrupt_id, (Xil_ExceptionHandler)XGpioPs_IntrHandler, (void *)gpio_ps);
+    /*
+     * Connect the device driver handler that will be called when an
+     * interrupt for the device occurs, the handler defined above performs
+     * the specific interrupt processing for the device.
+     */
+    status = XScuGic_Connect(interrupt_controller, gpio_interrupt_id, (Xil_ExceptionHandler)XGpioPs_IntrHandler, (void *)gpio_ps);
     if (status != XST_SUCCESS) {
         xil_printf("INFO: Interrupt handler connection failed!\n\r");
         return XST_FAILURE;
     }
 
-	/*
-	 * Enable  interrupts for all the pins in bank 0.
-	 */
-	/* XGpioPs_SetIntrTypePin(gpio_ps, PBSW_PIN, XGPIOPS_IRQ_TYPE_EDGE_RISING); */
+    /*
+     * Enable  interrupts for all the pins in bank 0.
+     */
+    /* XGpioPs_SetIntrTypePin(gpio_ps, PBSW_PIN, XGPIOPS_IRQ_TYPE_EDGE_RISING); */
 
     /* Enable level-edge interrupts for all the pins in bank 0 except pin 0,
      * where push button is connected.
@@ -251,28 +251,28 @@ static int setup_interrupt_system_pushbutton(XScuGic *interrupt_controller, XGpi
      */
     XGpioPs_SetIntrType(gpio_ps, XGPIOPS_BANK0, 0x01, 0xFFFFFFFF, 0x00);
 
-	/*
-	 * Set the handler for GPIO interrupts.
-	 */
-	XGpioPs_SetCallbackHandler(gpio_ps, (void *)gpio_ps, interrupt_handler_pushbutton);
+    /*
+     * Set the handler for GPIO interrupts.
+     */
+    XGpioPs_SetCallbackHandler(gpio_ps, (void *)gpio_ps, interrupt_handler_pushbutton);
 
-	/* Enable the GPIO interrupts of Bank 0. */
-	/* XGpioPs_IntrEnablePin(gpio_ps, PBSW_PIN); */
-	XGpioPs_IntrEnable(gpio_ps, XGPIOPS_BANK0, (1 << PBSW_PIN));
+    /* Enable the GPIO interrupts of Bank 0. */
+    /* XGpioPs_IntrEnablePin(gpio_ps, PBSW_PIN); */
+    XGpioPs_IntrEnable(gpio_ps, XGPIOPS_BANK0, (1 << PBSW_PIN));
 
 
-	/* Enable the interrupt for the GPIO device. */
-	XScuGic_Enable(interrupt_controller, gpio_interrupt_id);
+    /* Enable the interrupt for the GPIO device. */
+    XScuGic_Enable(interrupt_controller, gpio_interrupt_id);
 
-	/* Enable interrupts in the Processor. */
-	Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ);
+    /* Enable interrupts in the Processor. */
+    Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ);
 
-	return XST_SUCCESS;
+    return XST_SUCCESS;
 }
 
 static int cleanup_interrupt_system_pushbutton(XScuGic *interrupt_controller, XGpioPs *gpio_ps, u16 gpio_interrupt_id) {
 
-	int status;
+    int status;
 
 
     /*XGpioPs_IntrDisablePin(gpio_ps, (u32)PBSW_PIN);*/
@@ -284,64 +284,64 @@ static int cleanup_interrupt_system_pushbutton(XScuGic *interrupt_controller, XG
     /*XGpioPs_IntrEnable(gpio_ps, XGPIOPS_BANK0, (1 << PBSW_PIN));*/
     XGpioPs_IntrEnable(gpio_ps, XGPIOPS_BANK0, (1 << PBSW_PIN));
 
-	return XST_SUCCESS;
+    return XST_SUCCESS;
 }
 
 int test_pushbutton_with_interrupt() {
-	int status;
+    int status;
 
-	/* Initialize the PS GPIO Driver. */
-	gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
-	status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
-	if (status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Set the direction for the PS push button pin to be input */
-	XGpioPs_SetDirectionPin(&gpio_ps, PBSW_PIN, 0x0);
-
-	/* Set the direction for the red PS LED pin to be output. */
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1); /* output pin */
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-
-	/* Set the direction for the green PS LED pin to be output. */
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1); /* output pin */
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
-
-	status = setup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
-	if (status != XST_SUCCESS) {
+    /* Initialize the PS GPIO Driver. */
+    gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
+    status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
+    if (status != XST_SUCCESS) {
         return XST_FAILURE;
     }
 
-	xil_printf("INFO: Testing PS button. Push it 5 times...\n\r");
-	int i = 0;
-	while (1) {
+    /* Set the direction for the PS push button pin to be input */
+    XGpioPs_SetDirectionPin(&gpio_ps, PBSW_PIN, 0x0);
 
-		__asm__("wfi");
+    /* Set the direction for the red PS LED pin to be output. */
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1); /* output pin */
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
 
-		i++;
-		xil_printf("INFO:   %u\n\r", i);
+    /* Set the direction for the green PS LED pin to be output. */
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1); /* output pin */
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
 
-		if (i >= 5) break;
-	}
-	xil_printf("INFO: Done! Turn off LEDs.\n\r");
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
-
-	status = cleanup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
-	if (status != XST_SUCCESS) {
+    status = setup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
+    if (status != XST_SUCCESS) {
         return XST_FAILURE;
     }
 
-	return status;
+    xil_printf("INFO: Testing PS button. Push it 5 times...\n\r");
+    int i = 0;
+    while (1) {
+
+        __asm__("wfi");
+
+        i++;
+        xil_printf("INFO:   %u\n\r", i);
+
+        if (i >= 5) break;
+    }
+    xil_printf("INFO: Done! Turn off LEDs.\n\r");
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
+
+    status = cleanup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
+    if (status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+
+    return status;
 }
 
 int enter_sleep_mode() {
 
-	/* Disable interrupts. */
-	//cpsidf();
+    /* Disable interrupts. */
+    //cpsidf();
 
     /*
      * The System-Level Control registers (SLCR) consist of various registers
@@ -356,23 +356,23 @@ int enter_sleep_mode() {
     Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 
 
-	/* Configure wake-up device. */
+    /* Configure wake-up device. */
 
-	/* Enable L2 cache dynamic clock gating. */
+    /* Enable L2 cache dynamic clock gating. */
 
-	/* Enable SCU standby mode. */
+    /* Enable SCU standby mode. */
 
-	/* Enable topswitch clock stop. */
+    /* Enable topswitch clock stop. */
 
-	/* Enable Cortex-A9 dynamic clock gating. */
+    /* Enable Cortex-A9 dynamic clock gating. */
 
-	/* Put the external DDR memory into self-refresh mode. */
+    /* Put the external DDR memory into self-refresh mode. */
 
-	/* Put the PLLs into bypass mode. */
+    /* Put the PLLs into bypass mode. */
 
-	/* Shut down the PLLs. */
+    /* Shut down the PLLs. */
 
-	/* Increase the clock divisor to slow down the CPU clock. */
+    /* Increase the clock divisor to slow down the CPU clock. */
 
 
 
@@ -485,92 +485,92 @@ int enter_sleep_mode() {
     data |= 0x0003f00; //enable standby mode and dynamic clock gating
     Xil_Out32(arm_clk_ctrl,data);
 #endif
-	return XST_SUCCESS;
+    return XST_SUCCESS;
 }
 
 int test_sleep_mode() {
-	int status;
+    int status;
 
-	/* Initialize the PS GPIO Driver. */
-	gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
-	status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
-	if (status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Set the direction for the PS push button pin to be input */
-	XGpioPs_SetDirectionPin(&gpio_ps, PBSW_PIN, 0x0);
-
-	/* Set the direction for the red PS LED pin to be output. */
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1); /* output pin */
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-
-	/* Set the direction for the green PS LED pin to be output. */
-	XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1); /* output pin */
-	XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
-
-	status = setup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
-	if (status != XST_SUCCESS) {
+    /* Initialize the PS GPIO Driver. */
+    gpio_ps_config = XGpioPs_LookupConfig(XPAR_PS7_GPIO_0_DEVICE_ID);
+    status = XGpioPs_CfgInitialize(&gpio_ps, gpio_ps_config, gpio_ps_config->BaseAddr);
+    if (status != XST_SUCCESS) {
         return XST_FAILURE;
     }
 
-	xil_printf("INFO: Testing PS button. Push it 5 times...\n\r");
-	int i = 0;
-	while (1) {
+    /* Set the direction for the PS push button pin to be input */
+    XGpioPs_SetDirectionPin(&gpio_ps, PBSW_PIN, 0x0);
 
-		enter_sleep_mode();
+    /* Set the direction for the red PS LED pin to be output. */
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_R_PIN, 0x1); /* output pin */
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_R_PIN, 0x1);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
 
-		/* Execute the wfi instruction to enter WFI mode. */
-		__asm__("wfi");
+    /* Set the direction for the green PS LED pin to be output. */
+    XGpioPs_SetDirectionPin(&gpio_ps, PS_LED_G_PIN, 0x1); /* output pin */
+    XGpioPs_SetOutputEnablePin(&gpio_ps, PS_LED_G_PIN, 0x1);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
 
-		i++;
-		xil_printf("INFO:   %u\n\r", i);
-
-		if (i >= 5) break;
-	}
-	xil_printf("INFO: Done! Turn off LEDs.\n\r");
-	XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
-	XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
-
-	status = cleanup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
-	if (status != XST_SUCCESS) {
+    status = setup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
+    if (status != XST_SUCCESS) {
         return XST_FAILURE;
     }
 
-	return status;
+    xil_printf("INFO: Testing PS button. Push it 5 times...\n\r");
+    int i = 0;
+    while (1) {
+
+        enter_sleep_mode();
+
+        /* Execute the wfi instruction to enter WFI mode. */
+        __asm__("wfi");
+
+        i++;
+        xil_printf("INFO:   %u\n\r", i);
+
+        if (i >= 5) break;
+    }
+    xil_printf("INFO: Done! Turn off LEDs.\n\r");
+    XGpioPs_WritePin(&gpio_ps, PS_LED_R_PIN, 0x0);
+    XGpioPs_WritePin(&gpio_ps, PS_LED_G_PIN, 0x0);
+
+    status = cleanup_interrupt_system_pushbutton(&interrupt_controller, &gpio_ps, XPAR_XGPIOPS_0_INTR);
+    if (status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+
+    return status;
 }
 
 #endif
 
 int main() {
 
-	int status;
+    int status;
 
     init_platform();
 
     status = test_leds(10);
     if (status != XST_SUCCESS) {
-    	xil_printf("ERROR: LED test failed!\n\r");
+        xil_printf("ERROR: LED test failed!\n\r");
     }
 
 #ifdef __INTERRUPT__
 #if 0
     status = test_pushbutton_with_interrupt();
     if (status != XST_SUCCESS) {
-    	xil_printf("ERROR: Pushbutton with interrupt test failed!\n\r");
+        xil_printf("ERROR: Pushbutton with interrupt test failed!\n\r");
     }
 #else
     status = test_sleep_mode();
     if (status != XST_SUCCESS) {
-    	xil_printf("ERROR: Pushbutton with interrupt test failed!\n\r");
+        xil_printf("ERROR: Pushbutton with interrupt test failed!\n\r");
     }
 #endif
 #else
     status = test_pushbutton();
     if (status != XST_SUCCESS) {
-    	xil_printf("ERROR: Pushbutton test failed!\n\r");
+        xil_printf("ERROR: Pushbutton test failed!\n\r");
     }
 #endif
 
