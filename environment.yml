@@ -1,4 +1,4 @@
-name: hls4ml-tutorial-0.4.0
+name: hls4ml-tutorial-0.5.0
 channels:
   - conda-forge
 dependencies:
@@ -10,5 +10,5 @@ dependencies:
   - pip:
     - jupyter
     - tensorflow==2.3.1
-    - hls4ml[profiling]==0.4.0
+    - hls4ml[profiling]==0.5.0
     - git+https://github.com/google/qkeras.git#egg=qkeras
