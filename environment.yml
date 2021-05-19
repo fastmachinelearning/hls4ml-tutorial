@@ -12,3 +12,5 @@ dependencies:
     - tensorflow==2.3.1
     - hls4ml[profiling]==0.5.0
     - git+https://github.com/google/qkeras.git#egg=qkeras
+    - scikit-learn
+    - git+https://github.com/thesps/conifer.git
