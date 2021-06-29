@@ -1,4 +1,4 @@
-name: hls4ml-tutorial-0.5.0
+name: hls4ml-tutorial
 channels:
   - conda-forge
 dependencies:
