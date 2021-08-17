@@ -29,3 +29,6 @@ docker build --build-arg NB_USER=jovyan --build-arg NB_UID=1000 . -f docker/Dock
 Then to start the container:
 `docker run -p 8888:8888 <IMAGE ID>`
 When the container starts, the Jupyter notebook server is started, and the link to open it in your browser is printed.
+
+## Companion material
+We have prepared a set of slides with some introduction and more details on each of the exercises.  Please find them [here](https://docs.google.com/presentation/d/1c4LvEc6yMByx2HJs8zUP5oxLtY6ACSizQdKvw5cg5Ck/edit?usp=sharing).
