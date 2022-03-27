@@ -29,7 +29,7 @@ Versions in the range *2018.2* and *2019.1* have been succesfully tested. If you
 
 When you clone this repository, please remember to specify the **course branch** `csee-e6868-spring2022`.
 ```
-git clone --recursive -b csee-e6868-spring2022 https://github.com/fastmachinelearning/hls4ml-tutorial.git
+git clone --recursive -b csee-e6868-spring2022 git@github.com:fastmachinelearning/hls4ml-tutorial.git
 ```
 
 #### Install Miniconda
