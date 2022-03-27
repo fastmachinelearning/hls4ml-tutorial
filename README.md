@@ -7,14 +7,13 @@
     - [Jupyter Notebook Setup](#jupyter-notebook-setup)
         + [Install Miniconda](#install-miniconda)
         + [Create and Activate a Conda Environment](#create-and-activate-a-conda-environment)
-        + [Update `hls4ml` Package in the Conda Environment](#update-hls4ml-package-in-the-conda-environment)
         + [Run Jupyter Notebook](#run-jupyter-notebook)
     - [Running Jupyter Notebook on a Remote Server](#running-jupyter-notebook-on-a-remote-server)
     - [Update Tutorial Repository](#update-tutorial-repository)
 
 <!-- vim-markdown-toc -->
 
-We follow notebooks from the official hls4ml tutorial for the course [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) at Columbia University. Please remember to always point to the branch `csee-e6868-spring2022`. For additional information you can visit the [hls4ml](https://fastmachinelearning.org/hls4ml) official webpage.
+For the course [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) at Columbia University, we follow the notebooks from the official hls4ml tutorial. Please remember to always point to the **course branch** `csee-e6868-spring2022`. For additional information you can visit the [hls4ml](https://fastmachinelearning.org/hls4ml) official webpage.
 
 You can set up your working space either on your local machine or the [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) servers. Ask the TAs to get the credential for the latter.
 
@@ -22,14 +21,13 @@ You can set up your working space either on your local machine or the [CSEE E686
 
 ### Xilinx Vivado HLS
 
-Make sure you have the [Xilinx Vivado Design Suite](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html) on your working machine. The path on the Columbia servers is `/opt/xilinx/Vivado/2019.2/bin`.
+Make sure you have the [Xilinx Vivado Design Suite](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html) on your working machine. The path on the Columbia servers is `/opt/xilinx/Vivado/2019.1/bin`.
 
 Versions in the range *2018.2* and *2019.1* have been succesfully tested. If you have more questions, please ask the instructors.
 
 ### Jupyter Notebook Setup
 
-When you clone this repository, please remember to specify the **course branch**.
-
+When you clone this repository, please remember to specify the **course branch** `csee-e6868-spring2022`.
 ```
 git clone --recursive -b csee-e6868-spring2022 https://github.com/fastmachinelearning/hls4ml-tutorial.git
 ```
@@ -58,9 +56,9 @@ In any new console, remember to activate the newly created environemnt:
 conda activate hls4ml-tutorial-cu
 ```
 
-#### Update `hls4ml` Package in the Conda Environment
+<!--#### Update `hls4ml` Package in the Conda Environment
 
-Because the `hls4ml` project is constantly evolving, it may be necessary to update the package in your Conda environment. The easiest way is:
+The `hls4ml` project is in constant evolution and it may be necessary to update the package in your Conda environment. The easiest way is:
 
 ```
 conda activate hls4ml-tutorial-cu
@@ -69,6 +67,7 @@ pip install git@github.com:hls4ml-finn-mlperftiny/hls4ml.git@fifo_depth_opt#egg=
 ```
 
 [Here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) you can find more instructions on how to create and manage a Conda environment.
+-->
 
 #### Run Jupyter Notebook
 
