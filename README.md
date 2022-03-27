@@ -14,21 +14,21 @@
 
 <!-- vim-markdown-toc -->
 
-We adopt the `hls4ml-tutorial` notebooks for the course [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) at Columbia University. Please remember to use the branch `csee-e6868-spring2022`. For additional information you can visit the [hls4ml](https://fastmachinelearning.org/hls4ml) official webpage.
+We follow notebooks from the official hls4ml tutorial for the course [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) at Columbia University. Please remember to always point to the branch `csee-e6868-spring2022`. For additional information you can visit the [hls4ml](https://fastmachinelearning.org/hls4ml) official webpage.
 
-You can set up your working space either on your local machine or the [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) servers. Ask the instructors to get the credential for the latter.
+You can set up your working space either on your local machine or the [CSEE E6868 Spring 2022](http://www.cs.columbia.edu/~cseesoc/esp_html) servers. Ask the TAs to get the credential for the latter.
 
 ## Getting Started
 
 ### Xilinx Vivado HLS
 
-Make sure you have the [Xilinx Vivado Design Suite](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html) on your working machine. The path on the Columbia servers is `/opt/Xilinx/Vivado/2018.2/bin`.
+Make sure you have the [Xilinx Vivado Design Suite](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html) on your working machine. The path on the Columbia servers is `/opt/xilinx/Vivado/2019.2/bin`.
 
-A version of the design suite between ver. *2018.2* and *2019.2* has been tested. If you have more questions, please ask the instructors.
+Versions in the range *2018.2* and *2019.1* have been succesfully tested. If you have more questions, please ask the instructors.
 
 ### Jupyter Notebook Setup
 
-When you clone this repository, please remember to specify the course branch.
+When you clone this repository, please remember to specify the **course branch**.
 
 ```
 git clone --recursive -b csee-e6868-spring2022 https://github.com/fastmachinelearning/hls4ml-tutorial.git
@@ -45,7 +45,7 @@ bash Miniconda3-latest-Linux-x86_64.sh
 
 #### Create and Activate a Conda Environment
 
-The Conda environment used for the tutorial is specified in the `environment.yml` file. Creating the environment is a _on-time_ operation:
+The Conda environment used for the tutorial is specified in the `environment.yml` file. Creating the environment is a _one-time_ operation:
 ```
 cd hls4ml-tutorial
 conda env create -f environment.yml
@@ -65,7 +65,7 @@ Because the `hls4ml` project is constantly evolving, it may be necessary to upda
 ```
 conda activate hls4ml-tutorial-cu
 pip uninstall hls4ml
-pip install git+https://github.com/GiuseppeDiGuglielmo/hls4ml.git@gdg/cosmetics#egg=hls4ml[profiling]
+pip install git@github.com:hls4ml-finn-mlperftiny/hls4ml.git@fifo_depth_opt#egg=hls4ml[profiling]
 ```
 
 [Here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) you can find more instructions on how to create and manage a Conda environment.
