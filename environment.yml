@@ -11,7 +11,11 @@ dependencies:
     - jupyter
     - tensorflow-cpu==2.4.0
     - tensorflow_datasets
-    - git+https://github.com/hls4ml-finn-mlperftiny/hls4ml.git@fifo_depth_opt#egg=hls4ml[profiling]
+    - hls4ml[profiling]==0.6.0
     - qkeras==0.9.0
     - scikit-learn
     - git+https://github.com/thesps/conifer.git
+
+### Experimental
+#    - git+https://github.com/hls4ml-finn-mlperftiny/hls4ml.git@fifo_depth_opt#egg=hls4ml[profiling]
+###
