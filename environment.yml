@@ -14,4 +14,4 @@ dependencies:
     - hls4ml[profiling]==0.6.0
     - qkeras==0.9.0
     - scikit-learn
-    - git+https://github.com/thesps/conifer.git
+    - git+https://github.com/thesps/conifer.git@v0.2-beta.0
