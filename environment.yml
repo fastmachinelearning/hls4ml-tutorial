@@ -6,12 +6,12 @@ dependencies:
   - jupyterhub
   - pydot
   - graphviz
+  - jupyter-book
   - pip
   - pip:
-    - jupyter
-    - tensorflow==2.4.0
+    - tensorflow==2.12.0
     - tensorflow_datasets
-    - hls4ml[profiling]==0.6.0
+    - hls4ml[profiling]==0.7.0rc1
     - qkeras==0.9.0
     - scikit-learn
     - conifer==0.2b0
