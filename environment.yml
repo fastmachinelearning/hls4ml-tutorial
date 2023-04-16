@@ -2,16 +2,16 @@ name: hls4ml-tutorial
 channels:
   - conda-forge
 dependencies:
-  - python=3.8
-  - jupyterhub
-  - pydot
-  - graphviz
-  - jupyter-book
-  - pip
+  - python=3.10.10
+  - jupyterhub==3.1.1
+  - jupyter-book==0.15.1
+  - pydot==1.4.2
+  - graphviz==7.1.0
+  - scikit-learn==1.2.2
+  - tensorflow==2.11.1
+  - tensorflow-datasets==4.8.3
+  - pip==23.0.1
   - pip:
-    - tensorflow==2.12.0
-    - tensorflow_datasets
-    - hls4ml[profiling]==0.7.0rc1
-    - qkeras==0.9.0
-    - scikit-learn
-    - conifer==0.2b0
+      - hls4ml[profiling]==0.7.0rc1
+      - qkeras==0.9.0
+      - conifer==0.2b0
