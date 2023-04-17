@@ -6,11 +6,13 @@ dependencies:
   - jupyter_contrib_nbextensions==0.5.1
   - jupyterhub==3.1.1
   - jupyter-book==0.15.1
+  - jsonschema-with-format-nongpl
   - pydot==1.4.2
   - graphviz==7.1.0
   - scikit-learn==1.2.2
   - tensorflow==2.11.1
   - tensorflow-datasets==4.8.3
+  - webcolors
   - pip==23.0.1
   - pip:
       - hls4ml[profiling]==0.7.0rc1
