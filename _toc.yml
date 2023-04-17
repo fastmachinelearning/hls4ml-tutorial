@@ -1,0 +1,10 @@
+format: jb-book
+root: README.md
+chapters:
+ - file: part1_getting_started.ipynb
+ - file: part2_advanced_features.ipynb
+ - file: part3_compression.ipynb
+ - file: part4_quantization.ipynb
+ - file: part5_bdt.ipynb
+ - file: part6_cnns.ipynb
+ - file: part7_deployment.ipynb

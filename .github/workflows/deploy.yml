@@ -1,0 +1,52 @@
+name: deploy-book
+
+# Only run this when the master branch changes
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  deploy-book:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # Install dependencies
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: hls4ml-tutorial
+        environment-file: environment.yml
+        python-version: 3.10.10
+        auto-activate-base: false
+
+    # Check dependencies
+    - name: Check Miniconda
+      shell: bash -l {0}
+      run: |
+        conda info
+        conda list
+        conda config --show-sources
+        conda config --show
+        printenv | sort
+
+    - name: Build the book
+      shell: bash -l {0}
+      run: |
+        jupyter contrib nbextension install --user
+        jupyter nbextension enable --py widgetsnbextension
+        jupyter-book build .
+
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.9.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: _build/html
+        force_orphan: true
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
