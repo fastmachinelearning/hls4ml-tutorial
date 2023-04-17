@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: UCSD PHYS 141/241
+title: hls4ml tutorial
 author: Fast ML team
 logo: images/hls4ml_logo.svg
 favicon: images/hls4ml_logo.svg
