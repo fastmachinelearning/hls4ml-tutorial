@@ -9,7 +9,7 @@ RUN mamba install -y -c conda-forge \
     jupyter-book==0.15.1 \
     jupyter_contrib_nbextensions==0.5.1
 RUN pip install \
-    hls4ml[profiling]==0.7.0rc1 \
+    hls4ml[profiling]==0.7.0 \
     qkeras==0.9.0 \
     conifer==0.2b0
 RUN mamba clean --all -f -y && \

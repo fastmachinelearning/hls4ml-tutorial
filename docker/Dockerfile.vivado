@@ -4,7 +4,8 @@ FROM jupyter/tensorflow-notebook:tensorflow-2.11.1
 USER root
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
-    curl && \
+    curl \
+    libtinfo5 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
