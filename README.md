@@ -23,37 +23,40 @@ conda activate hls4ml-tutorial
 ## Docker without Vivado
 Pull the prebuilt image from DockerHub:
 ```bash
-docker pull docker pull jmduarte/hls4ml-tutorial:hls4ml-0.7.0rc1
+docker pull jmduarte/hls4ml-tutorial:hls4ml-0.7.0
 ```
 
 Follow these steps to build a Docker image that can be used locally, or on a JupyterHub instance.
-You can build the image (without Vivado) straight from the GitHub:
+You can build the image (without Vivado):
 ```bash
 docker build https://github.com/fastmachinelearning/hls4ml-tutorial -f docker/Dockerfile
 ```
-Alternatively, you can clone the repository and build locally (you might want to do this to add Vivado installation, for example):
+Alternatively, you can clone the repository and build locally:
 ```bash
 git clone https://github.com/fastmachinelearning/hls4ml-tutorial
 cd hls4ml-tutorial
-# modify something
-docker build -f docker/Dockerfile -t hls4ml-tutorial .
+docker build -f docker/Dockerfile -t jmduarte/hls4ml-tutorial:hls4ml-0.7.0 .
 ```
 Then to start the container:
 ```bash
-docker run -p 8888:8888 hls4ml-tutorial
+docker run -p 8888:8888 jmduarte/hls4ml-tutorial:hls4ml-0.7.0
 ```
 When the container starts, the Jupyter notebook server is started, and the link to open it in your browser is printed.
+You can clone the repository inside the container and run the notebooks.
 
 ## Docker with Vivado
 Pull the prebuilt image from DockerHub:
 ```bash
-docker pull docker pull jmduarte/hls4ml-tutorial:hls4ml-0.7.0rc1-vivado-2019.2
+docker pull jmduarte/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2
 ```
 
-To build the image with Vivado, you will need to edit `docker/install_vivado.sh` to use the Dropbox links instead of the local web server for downloading the Vivado installation files.
-Then, you can build the image:
+To build the image with Vivado, run:
 ```bash
-docker build -f docker/Dockerfile.vivado -t hls4ml-tutorial .
+docker build -f docker/Dockerfile.vivado -t jmduarte/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2 .
+```
+Then to start the container:
+```bash
+docker run -p 8888:8888 jmduarte/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2
 ```
 
 ## Companion material
