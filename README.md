@@ -21,9 +21,9 @@ conda activate hls4ml-tutorial
 ```
 
 ## Docker without Vivado
-Pull the prebuilt image from DockerHub:
+Pull the prebuilt image from the GitHub Container Registry:
 ```bash
-docker pull jmduarte/hls4ml-tutorial:hls4ml-0.7.0
+docker pull ghcr.io/fastmachinlearning/hls4ml-tutorial/hls4ml-0.7.0:latest
 ```
 
 Follow these steps to build a Docker image that can be used locally, or on a JupyterHub instance.
@@ -35,28 +35,28 @@ Alternatively, you can clone the repository and build locally:
 ```bash
 git clone https://github.com/fastmachinelearning/hls4ml-tutorial
 cd hls4ml-tutorial
-docker build -f docker/Dockerfile -t jmduarte/hls4ml-tutorial:hls4ml-0.7.0 .
+docker build -f docker/Dockerfile -t ghcr.io/fastmachinlearning/hls4ml-tutorial/hls4ml-0.7.0:latest .
 ```
 Then to start the container:
 ```bash
-docker run -p 8888:8888 jmduarte/hls4ml-tutorial:hls4ml-0.7.0
+docker run -p 8888:8888 ghcr.io/fastmachinlearning/hls4ml-tutorial/hls4ml-0.7.0:latest
 ```
 When the container starts, the Jupyter notebook server is started, and the link to open it in your browser is printed.
 You can clone the repository inside the container and run the notebooks.
 
 ## Docker with Vivado
-Pull the prebuilt image from DockerHub:
+Pull the prebuilt image from the GitHub Container Registry:
 ```bash
-docker pull jmduarte/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2
+docker pull ghcr.io/fastmachinlearning/hls4ml-tutorial/hls4ml-0.7.0-vivado-2019.2:latest
 ```
 
-To build the image with Vivado, run:
+To build the image with Vivado, run (Warning: takes a long time and requires a lot of disk space):
 ```bash
-docker build -f docker/Dockerfile.vivado -t jmduarte/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2 .
+docker build -f docker/Dockerfile.vivado -t ghcr.io/fastmachinlearning/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2:latest .
 ```
 Then to start the container:
 ```bash
-docker run -p 8888:8888 jmduarte/hls4ml-tutorial:hls4ml-0.7.0-vivado-2019.2
+docker run -p 8888:8888 ghcr.io/fastmachinlearning/hls4ml-tutorial/hls4ml-0.7.0-vivado-2019.2:latest
 ```
 
 ## Companion material
