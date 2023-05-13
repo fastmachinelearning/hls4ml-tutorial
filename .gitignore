@@ -1,3 +1,8 @@
 .ipynb_checkpoints
 __pycache__
 *~
+*.npy
+_build
+model_1
+model_2
+model_3
