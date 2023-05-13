@@ -16,3 +16,5 @@ RUN mamba clean --all -f -y && \
     mamba list && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+LABEL org.opencontainers.image.source https://github.com/fastmachinelearning/hls4ml-tutorial
