@@ -34,5 +34,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ghcr.io/${{ github.repository }}/hls4ml-0.7.0:latest
-            ghcr.io/${{ github.repository }}/hls4ml-0.7.0:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/hls4ml-0.7.1:latest
+            ghcr.io/${{ github.repository }}/hls4ml-0.7.1:${{ github.sha }}
