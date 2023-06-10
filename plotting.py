@@ -54,7 +54,6 @@ def plotRoc(fpr, tpr, auc, labels, linestyle, legend=True):
 
 
 def rocData(y, predict_test, labels):
-
     df = pd.DataFrame()
 
     fpr = {}
@@ -72,7 +71,6 @@ def rocData(y, predict_test, labels):
 
 
 def makeRoc(y, predict_test, labels, linestyle='-', legend=True):
-
     if 'j_index' in labels:
         labels.remove('j_index')
 

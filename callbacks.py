@@ -70,7 +70,6 @@ class all_callbacks:
     def __init__(
         self, stop_patience=10, lr_factor=0.5, lr_patience=1, lr_epsilon=0.001, lr_cooldown=4, lr_minimum=1e-5, outputDir=''
     ):
-
         self.nl_begin = newline_callbacks_begin(outputDir)
         self.nl_end = newline_callbacks_end()
 
