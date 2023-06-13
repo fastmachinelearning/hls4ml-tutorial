@@ -52,7 +52,7 @@ docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1-vivado-2019
 
 To build the image with Vivado, run (Warning: takes a long time and requires a lot of disk space):
 ```bash
-docker build -f docker/Dockerfile.vivado -t ghcr.io/fastmachinelearning/hls4ml-tutorial:hls4ml-0.7.1-vivado-2019.2:latest .
+docker build -f docker/Dockerfile.vivado -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1-vivado-2019.2:latest .
 ```
 Then to start the container:
 ```bash
