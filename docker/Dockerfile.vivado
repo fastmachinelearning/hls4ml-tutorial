@@ -32,3 +32,6 @@ RUN mamba clean --all -f -y && \
     fix-permissions "/home/${NB_USER}"
 
 LABEL org.opencontainers.image.source https://github.com/fastmachinelearning/hls4ml-tutorial
+
+# ENV XILINX_VIVADO /opt/Xilinx/Vivado/2019.2
+COPY docker/start-notebook.sh /usr/local/bin/
