@@ -7,4 +7,6 @@ chapters:
  - file: part4_quantization.ipynb
  - file: part5_bdt.ipynb
  - file: part6_cnns.ipynb
- - file: part7_deployment.ipynb
+ - file: part7a_bitstream.ipynb
+ - file: part7b_deployment.ipynb
+ - file: part7c_validation.ipynb
