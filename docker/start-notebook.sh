@@ -4,6 +4,9 @@
 
 set -e
 
+# setup vivado 2019.1
+source /opt/Xilinx/Vivado/2019.1/settings64.sh
+
 # The Jupyter command to launch
 # JupyterLab by default
 DOCKER_STACKS_JUPYTER_CMD="${DOCKER_STACKS_JUPYTER_CMD:=lab}"
@@ -17,9 +20,6 @@ wrapper=""
 if [[ "${RESTARTABLE}" == "yes" ]]; then
     wrapper="run-one-constantly"
 fi
-
-# setup vivado 2019.1
-source /opt/Xilinx/Vivado/2019.1/settings64.sh
 
 # shellcheck disable=SC1091,SC2086
 exec /usr/local/bin/start.sh ${wrapper} jupyter ${DOCKER_STACKS_JUPYTER_CMD} ${NOTEBOOK_ARGS} "$@"
