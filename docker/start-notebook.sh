@@ -4,8 +4,8 @@
 
 set -e
 
-# setup vivado 2019.1
-source /opt/Xilinx/Vivado/2019.1/settings64.sh
+# setup vivado 2019.2
+source /opt/Xilinx/Vivado/2019.2/settings64.sh
 
 # The Jupyter command to launch
 # JupyterLab by default
