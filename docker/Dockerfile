@@ -1,11 +1,21 @@
 FROM jupyter/tensorflow-notebook:tensorflow-2.11.1
 
-# Install curl
+# Install prequisites
 USER root
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
     curl \
-    libtinfo5 && \
+    libtinfo5 \
+    libc6-dev-i386 \
+    net-tools \
+    graphviz \
+    make \
+    unzip \
+    g++ \
+    xvfb \
+    git \
+    libncursesw5 \
+    libc6-dev-i386 \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
