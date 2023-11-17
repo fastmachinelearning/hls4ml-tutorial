@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10.10
-  - jupyter_contrib_nbextensions==0.5.1
+  - jupyter_contrib_nbextensions==0.7.0
   - jupyterhub==3.1.1
   - jupyter-book==0.15.1
   - jsonschema-with-format-nongpl
