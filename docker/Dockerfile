@@ -1,5 +1,14 @@
 FROM jupyter/tensorflow-notebook:tensorflow-2.11.1
 
+# Install curl
+USER root
+RUN apt-get update -y && \
+    apt-get install --no-install-recommends -y \
+    curl \
+    libtinfo5 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install hls4ml and dependencies
 USER ${NB_USER}
 RUN mamba install -y -c conda-forge \
@@ -7,9 +16,9 @@ RUN mamba install -y -c conda-forge \
     pydot==1.4.2 \
     tensorflow-datasets==4.8.3 \
     jupyter-book==0.15.1 \
-    jupyter_contrib_nbextensions==0.5.1
+    jupyter_contrib_nbextensions==0.7.0
 RUN pip install \
-    hls4ml[profiling]==0.7.1 \
+    hls4ml[profiling]==0.8.0 \
     qkeras==0.9.0 \
     conifer==0.2b0
 RUN mamba clean --all -f -y && \

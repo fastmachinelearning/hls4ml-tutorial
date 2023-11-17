@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10.10
-  - jupyter_contrib_nbextensions==0.5.1
+  - jupyter_contrib_nbextensions==0.7.0
   - jupyterhub==3.1.1
   - jupyter-book==0.15.1
   - jsonschema-with-format-nongpl
@@ -16,6 +16,6 @@ dependencies:
   - widgetsnbextension==3.6.0
   - pip==23.0.1
   - pip:
-      - hls4ml[profiling]==0.7.1
+      - hls4ml[profiling]==0.8.0
       - qkeras==0.9.0
       - conifer==0.2b0

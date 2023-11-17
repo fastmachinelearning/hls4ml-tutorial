@@ -14,12 +14,15 @@ jobs:
   deploy-book:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     # Install dependencies
     - name: Setup Miniconda
       uses: conda-incubator/setup-miniconda@v2
       with:
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
         activate-environment: hls4ml-tutorial
         environment-file: environment.yml
         python-version: 3.10.10
