@@ -1,5 +1,14 @@
 FROM jupyter/tensorflow-notebook:tensorflow-2.11.1
 
+# Install curl
+USER root
+RUN apt-get update -y && \
+    apt-get install --no-install-recommends -y \
+    curl \
+    libtinfo5 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install hls4ml and dependencies
 USER ${NB_USER}
 RUN mamba install -y -c conda-forge \
