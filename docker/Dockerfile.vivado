@@ -35,7 +35,8 @@ RUN mamba install -y -c conda-forge \
 RUN pip install \
     hls4ml[profiling]==0.8.0 \
     qkeras==0.9.0 \
-    conifer==0.2b0
+    conifer==0.2b0 \
+    pysr==0.16.3
 RUN mamba clean --all -f -y && \
     mamba list && \
     fix-permissions "${CONDA_DIR}" && \
