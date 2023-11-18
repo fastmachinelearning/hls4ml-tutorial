@@ -23,7 +23,7 @@ conda activate hls4ml-tutorial
 ## Docker without Vivado
 Pull the prebuilt image from the GitHub Container Registry:
 ```bash
-docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1:latest
+docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0:latest
 ```
 
 Follow these steps to build a Docker image that can be used locally, or on a JupyterHub instance.
@@ -35,11 +35,11 @@ Alternatively, you can clone the repository and build locally:
 ```bash
 git clone https://github.com/fastmachinelearning/hls4ml-tutorial
 cd hls4ml-tutorial
-docker build -f docker/Dockerfile -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1:latest .
+docker build -f docker/Dockerfile -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0:latest .
 ```
 Then to start the container:
 ```bash
-docker run -p 8888:8888 ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1:latest
+docker run -p 8888:8888 ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0:latest
 ```
 When the container starts, the Jupyter notebook server is started, and the link to open it in your browser is printed.
 You can clone the repository inside the container and run the notebooks.
@@ -47,16 +47,16 @@ You can clone the repository inside the container and run the notebooks.
 ## Docker with Vivado
 Pull the prebuilt image from the GitHub Container Registry:
 ```bash
-docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1-vivado-2019.2:latest
+docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0-vivado-2019.2:latest
 ```
 
 To build the image with Vivado, run (Warning: takes a long time and requires a lot of disk space):
 ```bash
-docker build -f docker/Dockerfile.vivado -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1-vivado-2019.2:latest .
+docker build -f docker/Dockerfile.vivado -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0-vivado-2019.2:latest .
 ```
 Then to start the container:
 ```bash
-docker run -p 8888:8888 ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.7.1-vivado-2019.2:latest
+docker run -p 8888:8888 ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0-vivado-2019.2:latest
 ```
 
 ## Companion material
