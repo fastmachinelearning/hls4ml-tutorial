@@ -8,3 +8,9 @@ build-and-push-job:
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --cache=true --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/Dockerfile --destination $CI_REGISTRY_IMAGE/hls4ml-0.8.0:${CI_COMMIT_SHA:0:8} --destination $CI_REGISTRY_IMAGE/hls4ml-0.8.0:latest
+
+build-and-push-vivado-job:
+  stage: build-and-push
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --cache=true --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/Dockerfile.vivado --destination $CI_REGISTRY_IMAGE/hls4ml-0.8.0-vivado-2019.1:${CI_COMMIT_SHA:0:8} --destination $CI_REGISTRY_IMAGE/hls4ml-0.8.0-vivado-2019.1:latest
