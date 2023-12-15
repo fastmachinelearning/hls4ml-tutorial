@@ -10,3 +10,4 @@ chapters:
  - file: part7a_bitstream.ipynb
  - file: part7b_deployment.ipynb
  - file: part7c_validation.ipynb
+ - file: part8_symbolic_regression.ipynb
