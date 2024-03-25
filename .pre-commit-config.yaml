@@ -2,7 +2,7 @@ exclude: .*\.rpt$
 
 repos:
 - repo: https://github.com/psf/black
-  rev: 23.11.0
+  rev: 24.3.0
   hooks:
   - id: black-jupyter
     language_version: python3
@@ -24,13 +24,13 @@ repos:
   - id: trailing-whitespace
 
 - repo: https://github.com/PyCQA/isort
-  rev: 5.13.0
+  rev: 5.13.2
   hooks:
   - id: isort
     args: ["--profile", "black", --line-length=125]
 
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.15.0
+  rev: v3.15.2
   hooks:
   - id: pyupgrade
     args: ["--py36-plus"]
@@ -41,7 +41,7 @@ repos:
   - id: setup-cfg-fmt
 
 - repo: https://github.com/pycqa/flake8
-  rev: 6.1.0
+  rev: 7.0.0
   hooks:
   - id: flake8
     exclude: docs/conf.py
