@@ -10,7 +10,7 @@
 
 There are several ways to run the tutorial notebooks:
 ## Online
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fastmachinelearning/hls4ml-tutorial)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fastmachinelearning/hls4ml-tutorial/HEAD)
 
 ## Conda
 The Python environment used for the tutorials is specified in the `environment.yml` file.
