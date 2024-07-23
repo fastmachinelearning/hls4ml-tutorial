@@ -1,31 +1,23 @@
-
-
-from io import BytesIO
 import json
 import os
-import random
-
-from glob import glob
-from pathlib import Path
 import pickle as pkl
+import random
+from glob import glob
+from io import BytesIO
+from pathlib import Path
 from typing import Callable
 
-import numpy as np
-
-import tensorflow as tf
-from tensorflow import keras
-
-from tqdm.auto import tqdm
-from matplotlib import pyplot as plt
-
-import zstd
 import h5py as h5
-
-from keras.src.saving.legacy import hdf5_format
-from keras.src.layers.convolutional.base_conv import Conv
-from keras.layers import Dense
-
+import numpy as np
+import tensorflow as tf
+import zstd
 from HGQ.bops import trace_minmax
+from keras.layers import Dense
+from keras.src.layers.convolutional.base_conv import Conv
+from keras.src.saving.legacy import hdf5_format
+from matplotlib import pyplot as plt
+from tensorflow import keras
+from tqdm.auto import tqdm
 
 
 class NumpyFloatValuesEncoder(json.JSONEncoder):
@@ -36,14 +28,15 @@ class NumpyFloatValuesEncoder(json.JSONEncoder):
 
 
 class SaveTopN(keras.callbacks.Callback):
-    def __init__(self,
-                 metric_fn: Callable[[dict], float],
-                 n: int,
-                 path: str | Path,
-                 side: str = 'max',
-                 fname_format='epoch={epoch}-metric={metric:.4e}.h5',
-                 cond_fn: Callable[[dict], bool] = lambda x: True,
-                 ):
+    def __init__(
+        self,
+        metric_fn: Callable[[dict], float],
+        n: int,
+        path: str | Path,
+        side: str = 'max',
+        fname_format='epoch={epoch}-metric={metric:.4e}.h5',
+        cond_fn: Callable[[dict], bool] = lambda x: True,
+    ):
         self.n = n
         self.metric_fn = metric_fn
         self.path = Path(path)
@@ -188,9 +181,11 @@ def absorb_batchNorm(model_target, model_original):
         if layer.__class__.__name__ == 'Functional':
             absorb_batchNorm(layer, model_original.get_layer(layer.name))
             continue
-        if (isinstance(layer, Dense) or isinstance(layer, Conv)) and \
-            len(nodes := model_original.get_layer(layer.name)._outbound_nodes) > 0 and \
-                isinstance(nodes[0].outbound_layer, keras.layers.BatchNormalization):
+        if (
+            (isinstance(layer, Dense) or isinstance(layer, Conv))
+            and len(nodes := model_original.get_layer(layer.name)._outbound_nodes) > 0
+            and isinstance(nodes[0].outbound_layer, keras.layers.BatchNormalization)
+        ):
             _gamma, _beta, _mu, _var = model_original.get_layer(layer.name)._outbound_nodes[0].outbound_layer.get_weights()
             _ratio = _gamma / np.sqrt(0.001 + _var)
             _bias = -_gamma * _mu / np.sqrt(0.001 + _var) + _beta
@@ -213,7 +208,7 @@ def absorb_batchNorm(model_target, model_original):
             weights = layer.get_weights()
             new_weights = model_original.get_layer(layer.name).get_weights()
             l = len(new_weights)
-            layer.set_weights([*new_weights, *weights[l:]][:len(weights)])
+            layer.set_weights([*new_weights, *weights[l:]][: len(weights)])
 
 
 def set_seed(seed):
@@ -225,8 +220,9 @@ def set_seed(seed):
     tf.config.experimental.enable_op_determinism()
 
 
-import h5py as h5
 import json
+
+import h5py as h5
 
 
 def get_best_ckpt(save_path: Path, take_min=False):
@@ -245,13 +241,14 @@ def get_best_ckpt(save_path: Path, take_min=False):
 
 
 class PeratoFront(keras.callbacks.Callback):
-    def __init__(self,
-                 path: str | Path,
-                 fname_format: str,
-                 metrics_names: list[str],
-                 sides: list[int],
-                 cond_fn: Callable[[dict], bool] = lambda x: True,
-                 ):
+    def __init__(
+        self,
+        path: str | Path,
+        fname_format: str,
+        metrics_names: list[str],
+        sides: list[int],
+        cond_fn: Callable[[dict], bool] = lambda x: True,
+    ):
         self.path = Path(path)
         self.fname_format = fname_format
         os.makedirs(path, exist_ok=True)
