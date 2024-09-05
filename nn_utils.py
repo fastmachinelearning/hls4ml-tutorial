@@ -2,7 +2,6 @@ import json
 import os
 import pickle as pkl
 import random
-from glob import glob
 from io import BytesIO
 from pathlib import Path
 from typing import Callable
@@ -207,7 +206,7 @@ def absorb_batchNorm(model_target, model_original):
                 continue
             weights = layer.get_weights()
             new_weights = model_original.get_layer(layer.name).get_weights()
-            l = len(new_weights)
+            l = len(new_weights)  # noqa: E741 # If l looks like 1 by any chance, change your font.
             layer.set_weights([*new_weights, *weights[l:]][: len(weights)])
 
 
@@ -218,11 +217,6 @@ def set_seed(seed):
     random.seed(seed)
 
     tf.config.experimental.enable_op_determinism()
-
-
-import json
-
-import h5py as h5
 
 
 def get_best_ckpt(save_path: Path, take_min=False):
