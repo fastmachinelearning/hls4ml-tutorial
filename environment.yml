@@ -18,5 +18,6 @@ dependencies:
   - pip:
       - hls4ml[profiling]==0.8.0
       - qkeras==0.9.0
-      - conifer==0.2b0
+      - conifer==1.5
       - pysr==0.16.3
+      - xgboost==1.7.5
