@@ -30,4 +30,3 @@ CreateFileAssociation=1
 
 # Choose whether disk usage will be optimized (reduced) after installation
 EnableDiskUsageOptimization=1
-
