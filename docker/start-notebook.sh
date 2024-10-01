@@ -5,7 +5,7 @@
 set -e
 
 # setup vivado 2024.1
-source /opt/Xilinx/Vitis_HLS/2024.1/settings64.sh
+source settings64.sh
 
 # The Jupyter command to launch
 # JupyterLab by default
