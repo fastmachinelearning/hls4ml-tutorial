@@ -16,6 +16,6 @@ dependencies:
   - widgetsnbextension==3.6.0
   - pip==23.0.1
   - pip:
-      - hls4ml[profiling]==1.0.0
-      - conifer==0.2b0
-      - pysr==0.16.3
+      - hls4ml[profiling,optimization,sr,HGQ]==1.0.0
+      - conifer==1.5
+      - pysr==1.1.0
