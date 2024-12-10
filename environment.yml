@@ -18,4 +18,5 @@ dependencies:
   - pip:
       - hls4ml[profiling,optimization,sr,HGQ]==1.0.0
       - conifer==1.5
-      - pysr==1.1.0
+      - pysr==0.16.3
+      - xgboost==1.7.5
