@@ -13,50 +13,18 @@ There are several ways to run the tutorial notebooks:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fastmachinelearning/hls4ml-tutorial/HEAD)
 
 ## Conda
+Running the tutorials requires AMD Vitis HLS to be installed, see [here](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vitis.html).
+After the installation, the necessary environmental variables can be set using
+```
+source /path/to/your/installtion/Xilinx/Vitis_HLS/202X.X/settings64.(c)sh
+```
+
 The Python environment used for the tutorials is specified in the `environment.yml` file.
 It can be setup like:
 ```bash
 conda env create -f environment.yml
 conda activate hls4ml-tutorial
-```
-
-## Docker without Vivado
-Pull the prebuilt image from the GitHub Container Registry:
-```bash
-docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0:latest
-```
-
-Follow these steps to build a Docker image that can be used locally, or on a JupyterHub instance.
-You can build the image (without Vivado):
-```bash
-docker build https://github.com/fastmachinelearning/hls4ml-tutorial -f docker/Dockerfile
-```
-Alternatively, you can clone the repository and build locally:
-```bash
-git clone https://github.com/fastmachinelearning/hls4ml-tutorial
-cd hls4ml-tutorial
-docker build -f docker/Dockerfile -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0:latest .
-```
-Then to start the container:
-```bash
-docker run -p 8888:8888 ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0:latest
-```
-When the container starts, the Jupyter notebook server is started, and the link to open it in your browser is printed.
-You can clone the repository inside the container and run the notebooks.
-
-## Docker with Vivado
-Pull the prebuilt image from the GitHub Container Registry:
-```bash
-docker pull ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0-vivado-2019.2:latest
-```
-
-To build the image with Vivado, run (Warning: takes a long time and requires a lot of disk space):
-```bash
-docker build -f docker/Dockerfile.vivado -t ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0-vivado-2019.2:latest .
-```
-Then to start the container:
-```bash
-docker run -p 8888:8888 ghcr.io/fastmachinelearning/hls4ml-tutorial/hls4ml-0.8.0-vivado-2019.2:latest
+source /path/to/your/installtion/Xilinx/Vitis_HLS/202X.X/settings64.(c)sh
 ```
 
 ## Companion material
