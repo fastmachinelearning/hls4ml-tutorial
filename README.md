@@ -27,6 +27,8 @@ conda activate hls4ml-tutorial
 source /path/to/your/installtion/Xilinx/Vitis_HLS/202X.X/settings64.(c)sh
 ```
 
+Note that part 7 of the tutorial makes use of the `VivadoAccelator` backend of hls4ml for which no Vitis equivalent is available yet. For this part of the tutorial it is therefore necesary to install and source Vivado HLS version 2019.2 or 2020.1, which can be obtained [here](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive.html).
+
 ## Companion material
 We have prepared a set of slides with some introduction and more details on each of the exercises.
 Please find them [here](https://docs.google.com/presentation/d/1c4LvEc6yMByx2HJs8zUP5oxLtY6ACSizQdKvw5cg5Ck/edit?usp=sharing).
