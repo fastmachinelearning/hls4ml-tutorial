@@ -1,0 +1,69 @@
+Traceback (most recent call last):
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import xgboost as xgb
+import matplotlib.pyplot as plt
+import plotting
+import numpy as np
+from scipy.special import softmax
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+import conifer
+import json
+import os
+import sys
+
+os.environ['PATH'] = os.environ['XILINX_VITIS'] + '/bin:' + os.environ['PATH']
+
+# enable more output from conifer
+import logging
+
+logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
+logger = logging.getLogger('conifer')
+logger.setLevel('DEBUG')
+
+# create a random seed at we use to make the results repeatable
+seed = int('hls4ml-tutorial'.encode('utf-8').hex(), 16) % 2**31
+
+print(f'Using conifer version {conifer.__version__}')
+------------------
+
+----- stderr -----
+Could not import conifer ydf converter
+----- stderr -----
+runtime module could not be imported. Interacting with accelerators will not be possible.
+----- stderr -----
+runtime module could not be imported. Interacting with FPUs will not be possible.
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+Cell [0;32mIn[1], line 12[0m
+[1;32m      9[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01mos[39;00m
+[1;32m     10[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01msys[39;00m
+[0;32m---> 12[0m os[38;5;241m.[39menviron[[38;5;124m'[39m[38;5;124mPATH[39m[38;5;124m'[39m] [38;5;241m=[39m [43mos[49m[38;5;241;43m.[39;49m[43menviron[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mXILINX_VITIS[39;49m[38;5;124;43m'[39;49m[43m][49m [38;5;241m+[39m [38;5;124m'[39m[38;5;124m/bin:[39m[38;5;124m'[39m [38;5;241m+[39m os[38;5;241m.[39menviron[[38;5;124m'[39m[38;5;124mPATH[39m[38;5;124m'[39m]
+[1;32m     14[0m [38;5;66;03m# enable more output from conifer[39;00m
+[1;32m     15[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01mlogging[39;00m
+
+File [0;32m~/miniconda3/envs/hls4ml-tutorial/lib/python3.10/os.py:680[0m, in [0;36m_Environ.__getitem__[0;34m(self, key)[0m
+[1;32m    677[0m     value [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_data[[38;5;28mself[39m[38;5;241m.[39mencodekey(key)]
+[1;32m    678[0m [38;5;28;01mexcept[39;00m [38;5;167;01mKeyError[39;00m:
+[1;32m    679[0m     [38;5;66;03m# raise KeyError with the original key value[39;00m
+[0;32m--> 680[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(key) [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;28;01mNone[39;00m
+[1;32m    681[0m [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39mdecodevalue(value)
+
+[0;31mKeyError[0m: 'XILINX_VITIS'
+

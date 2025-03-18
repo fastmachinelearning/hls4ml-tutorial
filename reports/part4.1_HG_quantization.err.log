@@ -1,0 +1,57 @@
+Traceback (most recent call last):
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import os
+import keras
+from keras.utils import to_categorical
+from sklearn.datasets import fetch_openml
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+import numpy as np
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+seed = 0
+np.random.seed(seed)
+import tensorflow as tf
+
+tf.random.set_seed(seed)
+
+os.environ['PATH'] = os.environ['XILINX_VITIS'] + '/bin:' + os.environ['PATH']
+------------------
+
+----- stderr -----
+2025-03-18 16:13:19.698206: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+Cell [0;32mIn[1], line 17[0m
+[1;32m     13[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01mtensorflow[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[38;5;21;01mtf[39;00m
+[1;32m     15[0m tf[38;5;241m.[39mrandom[38;5;241m.[39mset_seed(seed)
+[0;32m---> 17[0m os[38;5;241m.[39menviron[[38;5;124m'[39m[38;5;124mPATH[39m[38;5;124m'[39m] [38;5;241m=[39m [43mos[49m[38;5;241;43m.[39;49m[43menviron[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mXILINX_VITIS[39;49m[38;5;124;43m'[39;49m[43m][49m [38;5;241m+[39m [38;5;124m'[39m[38;5;124m/bin:[39m[38;5;124m'[39m [38;5;241m+[39m os[38;5;241m.[39menviron[[38;5;124m'[39m[38;5;124mPATH[39m[38;5;124m'[39m]
+
+File [0;32m~/miniconda3/envs/hls4ml-tutorial/lib/python3.10/os.py:680[0m, in [0;36m_Environ.__getitem__[0;34m(self, key)[0m
+[1;32m    677[0m     value [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_data[[38;5;28mself[39m[38;5;241m.[39mencodekey(key)]
+[1;32m    678[0m [38;5;28;01mexcept[39;00m [38;5;167;01mKeyError[39;00m:
+[1;32m    679[0m     [38;5;66;03m# raise KeyError with the original key value[39;00m
+[0;32m--> 680[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(key) [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;28;01mNone[39;00m
+[1;32m    681[0m [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39mdecodevalue(value)
+
+[0;31mKeyError[0m: 'XILINX_VITIS'
+
