@@ -10,7 +10,7 @@ repos:
            '--skip-string-normalization']
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v5.0.0
+  rev: v6.0.0
   hooks:
   - id: check-added-large-files
   - id: check-case-conflict
@@ -30,7 +30,7 @@ repos:
     args: ["--profile", "black", --line-length=125]
 
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.19.1
+  rev: v3.20.0
   hooks:
   - id: pyupgrade
     args: ["--py36-plus"]
@@ -41,7 +41,7 @@ repos:
   - id: setup-cfg-fmt
 
 - repo: https://github.com/pycqa/flake8
-  rev: 7.2.0
+  rev: 7.3.0
   hooks:
   - id: flake8
     exclude: docs/conf.py
