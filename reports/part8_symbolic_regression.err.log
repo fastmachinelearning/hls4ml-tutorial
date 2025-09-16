@@ -1,0 +1,69 @@
+Traceback (most recent call last):
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+model_pysr.fit(X_train, Y_train)
+------------------
+
+----- stderr -----
+/home/runner/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/pysr/sr.py:1346: UserWarning: Note: it looks like you are running in Jupyter. The progress bar will be turned off.
+  warnings.warn(
+----- stdout -----
+Using features ['x2' 'x3' 'x6' 'x8' 'x14' 'x15']
+Compiling Julia backend...
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mImportError[0m                               Traceback (most recent call last)
+Cell [0;32mIn[5], line 1[0m
+[0;32m----> 1[0m [43mmodel_pysr[49m[38;5;241;43m.[39;49m[43mfit[49m[43m([49m[43mX_train[49m[43m,[49m[43m [49m[43mY_train[49m[43m)[49m
+
+File [0;32m~/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/pysr/sr.py:1970[0m, in [0;36mPySRRegressor.fit[0;34m(self, X, y, Xresampled, weights, variable_names, X_units, y_units)[0m
+[1;32m   1967[0m     [38;5;28mself[39m[38;5;241m.[39m_checkpoint()
+[1;32m   1969[0m [38;5;66;03m# Perform the search:[39;00m
+[0;32m-> 1970[0m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_run[49m[43m([49m[43mX[49m[43m,[49m[43m [49m[43my[49m[43m,[49m[43m [49m[43mmutated_params[49m[43m,[49m[43m [49m[43mweights[49m[38;5;241;43m=[39;49m[43mweights[49m[43m,[49m[43m [49m[43mseed[49m[38;5;241;43m=[39;49m[43mseed[49m[43m)[49m
+[1;32m   1972[0m [38;5;66;03m# Then, after fit, we save again, so the pickle file contains[39;00m
+[1;32m   1973[0m [38;5;66;03m# the equations:[39;00m
+[1;32m   1974[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28mself[39m[38;5;241m.[39mtemp_equation_file:
+
+File [0;32m~/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/pysr/sr.py:1625[0m, in [0;36mPySRRegressor._run[0;34m(self, X, y, mutated_params, weights, seed)[0m
+[1;32m   1622[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m already_ran [38;5;129;01mand[39;00m update_verbosity [38;5;241m!=[39m [38;5;241m0[39m:
+[1;32m   1623[0m     [38;5;28mprint[39m([38;5;124m"[39m[38;5;124mCompiling Julia backend...[39m[38;5;124m"[39m)
+[0;32m-> 1625[0m Main [38;5;241m=[39m [43minit_julia[49m[43m([49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mjulia_project[49m[43m,[49m[43m [49m[43mjulia_kwargs[49m[38;5;241;43m=[39;49m[43mjulia_kwargs[49m[43m)[49m
+[1;32m   1627[0m [38;5;28;01mif[39;00m cluster_manager [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[1;32m   1628[0m     cluster_manager [38;5;241m=[39m _load_cluster_manager(Main, cluster_manager)
+
+File [0;32m~/miniconda3/envs/hls4ml-tutorial/lib/python3.10/site-packages/pysr/julia_helpers.py:198[0m, in [0;36minit_julia[0;34m(julia_project, quiet, julia_kwargs, return_aux)[0m
+[1;32m    193[0m     [38;5;28;01mraise[39;00m [38;5;167;01mFileNotFoundError[39;00m(
+[1;32m    194[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mJulia is not installed in your PATH. Please install Julia and add it to your PATH.[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124mCurrent PATH: [39m[38;5;132;01m{[39;00menv_path[38;5;132;01m}[39;00m[38;5;124m"[39m,
+[1;32m    195[0m     )
+[1;32m    197[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m info[38;5;241m.[39mis_pycall_built():
+[0;32m--> 198[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m(_import_error())
+[1;32m    200[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01mjulia[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m Julia
+[1;32m    202[0m [38;5;28;01mtry[39;00m:
+
+[0;31mImportError[0m: 
+    Required dependencies are not installed or built.  Run the following command in your terminal:
+        python3 -m pysr install
+    
+
