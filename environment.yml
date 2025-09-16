@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10.16
+  - notebook==6.4.12
   - jupyter_contrib_nbextensions
   - jupyterhub
   - jupyter-book
