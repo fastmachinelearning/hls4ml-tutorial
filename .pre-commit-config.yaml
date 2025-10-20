@@ -1,8 +1,8 @@
 exclude: .*\.rpt$
 
 repos:
-- repo: https://github.com/psf/black
-  rev: 25.1.0
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 25.9.0
   hooks:
   - id: black-jupyter
     language_version: python3
@@ -24,19 +24,19 @@ repos:
   - id: trailing-whitespace
 
 - repo: https://github.com/PyCQA/isort
-  rev: 6.0.1
+  rev: 7.0.0
   hooks:
   - id: isort
     args: ["--profile", "black", --line-length=125]
 
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.20.0
+  rev: v3.21.0
   hooks:
   - id: pyupgrade
     args: ["--py36-plus"]
 
 - repo: https://github.com/asottile/setup-cfg-fmt
-  rev: v2.8.0
+  rev: v3.1.0
   hooks:
   - id: setup-cfg-fmt
 
@@ -50,7 +50,7 @@ repos:
            '--extend-ignore=E203,T201']  # E203 is not PEP8 compliant
 
 - repo: https://github.com/mgedmin/check-manifest
-  rev: "0.50"
+  rev: "0.51"
   hooks:
   - id: check-manifest
     stages: [manual]
