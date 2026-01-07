@@ -41,7 +41,6 @@ jobs:
     - name: Build the book
       shell: bash -l {0}
       run: |
-        jupyter contrib nbextension install --user
         jupyter nbextension enable --py widgetsnbextension
         jupyter-book build .
 
