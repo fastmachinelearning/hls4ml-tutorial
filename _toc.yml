@@ -10,3 +10,4 @@ chapters:
  - file: 3_advanced_config/3b_profiling.ipynb
  - file: 4_advanced_models/4a_qkeras_cnn_svhn.ipynb
  - file: 6_more_models/6a_bdt.ipynb
+ - file: 6_more_models/6b_symbolic_regression.ipynb
