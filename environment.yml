@@ -7,17 +7,17 @@ dependencies:
   - jupyter-book==2.1.5
   - pydot==1.4.2
   - graphviz==7.1.0
-  - onnx==1.17.0
-  - onnxscript==0.7.0
-  - onnxoptimizer==0.4.2
-  - pytorch==2.10.0
-  - tensorflow==2.19.1
-  - scikit-learn==1.4.1
+  - onnx
+  - onnxscript
+  - onnxoptimizer
+  - pytorch
+  - tensorflow>=2.19
+  - scikit-learn
   - pip:
       - hls4ml[keras-v3,qkeras-v3,onnx,sr,profiling] @ git+https://github.com/makoeppel/hls4ml.git@feature/add_qkeras_v3
       - git+https://github.com/fastmachinelearning/qkerasV3.git
-      - brevitas==0.12.1
-      - qonnx==1.0.0
+      - brevitas
+      - qonnx
       - conifer==1.8
       - pysr==1.5.4
       - xgboost==1.7.5
