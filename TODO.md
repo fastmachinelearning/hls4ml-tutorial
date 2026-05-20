@@ -18,4 +18,4 @@
 
 10. Add a notebook (e.g., 3c) on the different implementations of GEMV/Dense layers: Latency, Resource, da4ml
 
-11. Add a part 0 on basics of neural networks, FPGAs, etc., 
+11. Add a part 0 on basics of neural networks, FPGAs, etc.,
