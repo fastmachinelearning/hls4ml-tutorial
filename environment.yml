@@ -4,22 +4,20 @@ channels:
 dependencies:
   - python=3.10.16
   - notebook==6.4.12
-  - jupyter_contrib_nbextensions
-  - jupyterhub
-  - jupyter-book
-  - jsonschema-with-format-nongpl
+  - jupyter-book==2.1.5
   - pydot==1.4.2
   - graphviz==7.1.0
-  - scikit-learn==1.2.2
-  - tensorflow==2.14.0
-  - tensorflow-datasets==4.8.3
-  - webcolors
-  - widgetsnbextension==3.6.0
-  - pip==23.0.1
+  - onnx==1.17.0
+  - onnxscript==0.7.0
+  - onnxoptimizer==0.4.2
+  - pytorch==2.10.0
+  - tensorflow==2.19.1
+  - scikit-learn==1.4.1
   - pip:
-      - hls4ml[profiling,optimization,sr,HGQ,qkeras]==1.2.0
-      - conifer==1.5
-      - pysr==0.16.3
+      - hls4ml[keras-v3,qkeras-v3,onnx,sr,profiling] @ git+https://github.com/makoeppel/hls4ml.git@feature/add_qkeras_v3
+      - git+https://github.com/fastmachinelearning/qkerasV3.git
+      - brevitas==0.12.1
+      - qonnx==1.0.0
+      - conifer==1.8
+      - pysr==1.5.4
       - xgboost==1.7.5
-      - zstd
-      - tensorflow-model-optimization
