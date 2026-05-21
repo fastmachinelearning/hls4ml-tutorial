@@ -3,7 +3,8 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10.16
-  - notebook==6.4.12
+  - jupyterhub
+  - jupyterlab
   - jupyter-book==2.1.5
   - pydot==1.4.2
   - graphviz==7.1.0
