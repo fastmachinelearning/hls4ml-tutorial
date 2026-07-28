@@ -14,7 +14,7 @@ jobs:
   deploy-book:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     # Install dependencies
     - name: Setup Miniconda
@@ -45,7 +45,7 @@ jobs:
         jupyter-book build .
 
     - name: GitHub Pages action
-      uses: peaceiris/actions-gh-pages@v4.0.0
+      uses: peaceiris/actions-gh-pages@v4.1.0
       if: ${{ github.event_name != 'pull_request' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
