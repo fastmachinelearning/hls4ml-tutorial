@@ -3,23 +3,22 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10.16
-  - notebook==6.4.12
-  - jupyter_contrib_nbextensions
   - jupyterhub
-  - jupyter-book
-  - jsonschema-with-format-nongpl
+  - jupyterlab
+  - jupyter-book==2.1.5
   - pydot==1.4.2
   - graphviz==7.1.0
-  - scikit-learn==1.2.2
-  - tensorflow==2.14.0
-  - tensorflow-datasets==4.8.3
-  - webcolors
-  - widgetsnbextension==3.6.0
-  - pip==23.0.1
+  - onnx
+  - onnxscript
+  - onnxoptimizer
+  - pytorch
+  - tensorflow>=2.19
+  - scikit-learn
   - pip:
-      - hls4ml[profiling,optimization,sr,HGQ,qkeras]==1.2.0
-      - conifer==1.5
-      - pysr==0.16.3
+      - hls4ml[keras-v3,qkeras-v3,onnx,sr,profiling,snn] @ git+https://github.com/fastmachinelearning/hls4ml.git
+      - git+https://github.com/fastmachinelearning/qkerasV3.git
+      - brevitas
+      - qonnx
+      - conifer==1.8
+      - pysr==1.5.4
       - xgboost==1.7.5
-      - zstd
-      - tensorflow-model-optimization

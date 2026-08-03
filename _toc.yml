@@ -1,13 +1,14 @@
 format: jb-book
 root: README.md
 chapters:
- - file: part1_getting_started.ipynb
- - file: part2_advanced_config.ipynb
- - file: part3_compression.ipynb
- - file: part4_quantization.ipynb
- - file: part5_bdt.ipynb
- - file: part6_cnns.ipynb
- - file: part7a_bitstream.ipynb
- - file: part7b_deployment.ipynb
- - file: part7c_validation.ipynb
- - file: part8_symbolic_regression.ipynb
+ - file: 1_getting_started/1a_train_keras.ipynb
+ - file: 1_getting_started/1b_train_pytorch.ipynb
+ - file: 1_getting_started/1c_hls4ml_synth.ipynb
+ - file: 2_quantization/2a_qkeras.ipynb
+ - file: 2_quantization/2b_brevitas.ipynb
+ - file: 3_advanced_config/3a_reuse_factor.ipynb
+ - file: 3_advanced_config/3b_profiling.ipynb
+ - file: 4_advanced_models/4a_qkeras_cnn_svhn.ipynb
+ - file: 4_advanced_models/4b_snn.ipynb
+ - file: 6_more_models/6a_bdt.ipynb
+ - file: 6_more_models/6b_symbolic_regression.ipynb
