@@ -15,7 +15,7 @@ dependencies:
   - tensorflow>=2.19
   - scikit-learn
   - pip:
-      - hls4ml[keras-v3,qkeras-v3,onnx,sr,profiling] @ git+https://github.com/makoeppel/hls4ml.git@feature/add_qkeras_v3
+      - hls4ml[keras-v3,qkeras-v3,onnx,sr,profiling,snn] @ git+https://github.com/fastmachinelearning/hls4ml.git
       - git+https://github.com/fastmachinelearning/qkerasV3.git
       - brevitas
       - qonnx
