@@ -27,6 +27,18 @@ conda activate hls4ml-tutorial
 source /path/to/your/installtion/Xilinx/Vitis_HLS/202X.X/settings64.(c)sh
 ```
 
+## Accelerator backends (Part 5)
+Part 5 uses the **VitisUnified** backend of hls4ml, which produces a bitstream and a PYNQ driver for a SoC board (zcu102 or kv260).
+It requires Vitis and Vivado 2023.2 (Vivado for the platform build and place-and-route):
+```bash
+source /path/to/your/installtion/Xilinx/Vitis/2023.2/settings64.(c)sh
+```
+The backend is not merged into the main branch of hls4ml yet. Install it from pull request
+[#1376](https://github.com/fastmachinelearning/hls4ml/pull/1376) on top of the environment above:
+```bash
+pip install git+https://github.com/fastmachinelearning/hls4ml.git@refs/pull/1376/head
+```
+
 ## Companion material
 We have prepared a set of slides with some introduction and more details on each of the exercises.
 Please find them [here](https://docs.google.com/presentation/d/1c4LvEc6yMByx2HJs8zUP5oxLtY6ACSizQdKvw5cg5Ck/edit?usp=sharing).
