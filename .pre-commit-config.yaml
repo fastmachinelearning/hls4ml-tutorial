@@ -24,7 +24,7 @@ repos:
   - id: trailing-whitespace
 
 - repo: https://github.com/PyCQA/isort
-  rev: 9.0.0b1
+  rev: 9.0.1
   hooks:
   - id: isort
     args: ["--profile", "black", --line-length=125]
