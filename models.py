@@ -1,4 +1,4 @@
-"""Shared PyTorch model definitions used across the Part 1, 2, 3 and 6 notebooks.
+"""Shared model definitions used across the Part 1, 2, 3, 5 and 6 notebooks.
 
 Keeping these in one place means the architecture only needs to be changed here,
 rather than in every notebook that loads a model trained in `1b_train_pytorch.ipynb`.
@@ -51,3 +51,29 @@ class JetTaggerBrevitas(nn.Module):
 
     def forward(self, x):
         return torch.softmax(self.logits(x), dim=1)
+
+
+def create_simple_unet(input_shape=(4, 4, 1)):
+    """Tiny Keras U-Net with one skip connection, used by the Part 5 (Vitis Unified) notebooks.
+
+    The model is intentionally small so that C simulation, RTL co-simulation and bitfile generation
+    finish in a reasonable time. The weights are random: these notebooks check the *flow*, not the accuracy.
+    """
+    import keras
+    from keras.layers import Concatenate, Conv2D, Input, MaxPooling2D, UpSampling2D
+
+    inputs = Input(input_shape)
+    # Encoder
+    c1 = Conv2D(2, (3, 3), activation='relu', padding='same')(inputs)
+    p1 = MaxPooling2D((2, 2))(c1)
+    # Bottleneck
+    bn = Conv2D(4, (3, 3), activation='relu', padding='same')(p1)
+    # Decoder with skip connection
+    u1 = UpSampling2D((2, 2))(bn)
+    concat1 = Concatenate()([u1, c1])
+    c2 = Conv2D(2, (3, 3), activation='relu', padding='same')(concat1)
+    # Output layer (1 channel)
+    outputs = Conv2D(1, (1, 1), activation='sigmoid')(c2)
+    model = keras.Model(inputs, outputs)
+    model.compile(optimizer='adam', loss='binary_crossentropy')
+    return model
